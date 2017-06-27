@@ -8,7 +8,7 @@ RUN export TZ=Asia/Kolkata
 #user_activity codebase
 RUN mkdir -p /user_activity/src
 RUN mkdir -p /user_activity/lib
-RUN mkdir -p /user_activity/config
+RUN mkdir -p /user_activity/conf
 
 #setup user_activity env
 COPY requirements.txt /user_activity/
@@ -16,11 +16,11 @@ COPY main.py /user_activity/
 COPY wsgi.py /user_activity/
 COPY src/* /user_activity/src/
 COPY lib/* /user_activity/lib/
-COPY config/* /user_activity/config/
+COPY conf/* /user_activity/conf/
 
 #setup nginx for user_activity
 RUN rm /etc/nginx/sites-available/default
-COPY container_conf/user_actvity.nginx /etc/nginx/sites-available/user_activity
+COPY container_conf/user_activity.nginx /etc/nginx/sites-available/user_activity
 RUN ln -s /etc/nginx/sites-available/user_activity /etc/nginx/sites-enabled/
 
 #setup user_activity init script

@@ -1,8 +1,28 @@
 import simplejson as json
 import inspect
+import redis
 
-from main import DS_CONN, UA_CACHE_CONN, UP_CACHE_CONN
+#from main import DS_CONN, UA_CACHE_CONN, UP_CACHE_CONN
 from commonfns import log_formatter
+
+from google.cloud import datastore
+from main import CONFIG
+
+#connect to db
+global DS_CONN
+DS_CONN = datastore.Client(CONFIG['PROJECT_ID'])
+print log_formatter(inspect.stack()[0][3], "just got connected to db" , "DEBUG")
+
+#connect to redis
+global UA_CACHE_CONN
+pool = redis.ConnectionPool(host=CONFIG["CACHE_HOST"], port=CONFIG["CACHE_PORT"], db=7)
+UA_CACHE_CONN = redis.Redis(connection_pool=pool)
+
+global UP_CACHE_CONN
+pool = redis.ConnectionPool(host=CONFIG["CACHE_HOST"], port=CONFIG["CACHE_PORT"], db=9)
+UP_CACHE_CONN = redis.Redis(connection_pool=pool)
+print log_formatter(inspect.stack()[0][3], "just got connected to cache" , "DEBUG")
+ 
 
 def batch_get_lib_status(data):
     """batch call to get library status"""
