@@ -1,12 +1,17 @@
 import simplejson as json
 import inspect
 import redis
+import config
 
-#from main import DS_CONN, UA_CACHE_CONN, UP_CACHE_CONN
 from commonfns import log_formatter
-
 from google.cloud import datastore
-from main import CONFIG
+
+#config
+global CONFIG
+CONFIG = {'CACHE_HOST': config.CACHE_HOST,
+          'CACHE_PORT': config.CACHE_PORT,
+          'PROJECT_ID': config.PROJECT_ID,}
+print log_formatter(inspect.stack()[0][3], CONFIG, "DEBUG")
 
 #connect to db
 global DS_CONN
