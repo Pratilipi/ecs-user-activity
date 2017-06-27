@@ -23,26 +23,16 @@ from commonfns import api_response, log_formatter, requested_api_version, timeit
 
 print log_formatter(inspect.stack()[0][3], os.environ, "DEBUG")
 
-#config
-import config
-global CONFIG
-CONFIG = {'CACHE_HOST': config.CACHE_HOST,
-          'CACHE_PORT': config.CACHE_PORT,
-          'PROJECT_ID': config.PROJECT_ID,}
-print log_formatter(inspect.stack()[0][3], CONFIG, "DEBUG")
-
-
-
 
 @application.route('/health', method=['OPTIONS', 'GET'])
-@application.route('/user_activity/health', method=['OPTIONS', 'GET'])
+@application.route('/user-activity/health', method=['OPTIONS', 'GET'])
 def health():
     """health - to check health of the api"""
     result = [200, "OK", {"state":"healthy"}]
     return api_response(result)
 
 
-@application.route('/user_activity/is_add_to_lib', method=['OPTIONS', 'GET'])
+@application.route('/user-activity/is_add_to_lib', method=['OPTIONS', 'GET'])
 @timeit
 def is_add_to_lib():
     """method to check if library can be added"""
@@ -54,7 +44,7 @@ def is_add_to_lib():
     return api_response(result)
 
 
-@application.route('/user_activity/is_following_author', method=['OPTIONS', 'GET'])
+@application.route('/user-activity/is_following_author', method=['OPTIONS', 'GET'])
 @timeit
 def is_following_author():
     """method to check if user is following author"""
