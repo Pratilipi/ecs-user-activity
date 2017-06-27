@@ -16,6 +16,7 @@ def batch_get_lib_status(data):
     if pratilipi_id_list is None or pratilipi_id_list == '':
         return [400, "Bad Request"]
 
+    pratilipi_id_list = pratilipi_id_list.strip("[]")
     pratilipi_id_list = pratilipi_id_list.split(',')
 
     #get data if available in cache
@@ -65,6 +66,7 @@ def batch_get_following_status(data):
     if author_id_list is None or author_id_list == '':
         return [400, "Bad Request"]
 
+    author_id_list = author_id_list.strip("[]")
     author_id_list = author_id_list.split(',')
 
     #get data if available in cache
