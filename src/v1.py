@@ -121,7 +121,7 @@ def batch_get_following_status(data):
     for entity in entities:
         key = entity.key.id
         #key = entity.key.name
-        val = entity.get('FOLLOWING', None)
+        val = entity.get('FOLLOW_STATE', None)
         temp[key]["following"] = True if val == 'FOLLOWING' else False
         UA_CACHE_CONN.set(key, int(val)) #cache data
 
