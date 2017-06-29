@@ -30,7 +30,7 @@ COPY container_conf/user_activity_init.sh /user_activity/
 WORKDIR /user_activity
 
 #install dependencies for user_activity
-RUN pip install -r requirements.txt
+RUN pip install -q -r requirements.txt
 
 #container port expose
 EXPOSE 80
