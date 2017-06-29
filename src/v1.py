@@ -116,15 +116,12 @@ def batch_get_following_status(data):
         key = DS_CONN.key("USER_AUTHOR", entity_id)
         not_found[entity_id] = key
 
-
     entities = DS_CONN.get_multi(not_found.values())
     for entity in entities:
-        key = entity.key.id
-        print "----> key, ", key
-        #key = entity.key.name
+        key = entity.key.name
         val = entity.get('FOLLOW_STATE', None)
-        print "-----> val, ", val
-        temp[key]["following"] = True if val == 'FOLLOWING' else False
+        val = True if val == 'FOLLOWING' else False
+        temp[key]["following"] = val
         UA_CACHE_CONN.set(key, int(val)) #cache data
 
     response = temp.values()
