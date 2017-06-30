@@ -75,7 +75,7 @@ def batch_get_lib_status(data):
         #UP_CACHE_CONN.set(key, int(val)) #cache data
         print log_formatter(inspect.stack()[0][3], "setting cache - {}".format(key) , "DEBUG")
 
-    response = temp.values()
+    response = [temp["{}-{}".format(user_id, k)] for k in pratilipi_id_list]
     return [200, 'Success', response]
 
 
@@ -124,6 +124,6 @@ def batch_get_following_status(data):
         temp[key]["following"] = val
         #UA_CACHE_CONN.set(key, int(val)) #cache data
 
-    response = temp.values()
+    response = [temp["{}-{}".format(user_id, k)] for k in author_id_list]
     return [200, 'Success', response]
 
