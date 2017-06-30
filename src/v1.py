@@ -72,7 +72,7 @@ def batch_get_lib_status(data):
         key = entity.key.name
         val = entity.get('ADDED_TO_LIB', False)
         temp[key]["addedToLib"] = val
-        UP_CACHE_CONN.set(key, int(val)) #cache data
+        #UP_CACHE_CONN.set(key, int(val)) #cache data
         print log_formatter(inspect.stack()[0][3], "setting cache - {}".format(key) , "DEBUG")
 
     response = temp.values()
@@ -122,7 +122,7 @@ def batch_get_following_status(data):
         val = entity.get('FOLLOW_STATE', None)
         val = True if val == 'FOLLOWING' else False
         temp[key]["following"] = val
-        UA_CACHE_CONN.set(key, int(val)) #cache data
+        #UA_CACHE_CONN.set(key, int(val)) #cache data
 
     response = temp.values()
     return [200, 'Success', response]
