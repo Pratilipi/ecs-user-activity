@@ -147,6 +147,14 @@ This API is to update a rate-review.
   PATCH
 * **Headers:**  
   User-Id
+* **Request Body**
+  ~~~
+  {
+    "rating": 4,
+    "review": "This is a very good story.",
+    "state": "PUBLISHED"
+  }
+  ~~~  
 * **Response**  
   * **Code:** 200 
   ~~~
@@ -325,6 +333,12 @@ This API is to update a comment.
   PATCH
 * **Headers:**  
   User-Id
+* **Request Body**
+  ~~~
+  {
+    "comment": "Very nice review."
+  }
+  ~~~  
 * **Response**  
   * **Code:** 200 
   ~~~
@@ -347,7 +361,7 @@ This API is to update a comment.
   }
   ~~~
    
-**Delete Rate-Review**  
+**Delete Comment**  
 ----
 This API is to delete a comment.
 * **URL**  
@@ -469,6 +483,12 @@ This API is to update a vote.
   PATCH
 * **Headers:**  
   User-Id
+* **Request Body**
+  ~~~
+  {
+    "type": "NONE"
+  }
+  ~~~  
 * **Response**  
   * **Code:** 200 
   ~~~
@@ -488,5 +508,166 @@ This API is to update a vote.
   ~~~
   {
     "message": "Vote not found"
+  }
+  ~~~   
+
+**Post Follow**
+----
+This API is to follow an author.  
+* **URL**  
+  /user-activity/follows
+* **Method:**  
+  POST
+* **Headers:**  
+  User-Id
+* **Request Body**
+  ~~~
+  {
+    "referenceType": "COMMENT",
+    "referenceId": 1234567890
+  }
+  ~~~
+* **Response**  
+  * **Code:** 200 
+  ~~~
+  {
+    "message": "Successfully followed"
+  }
+  ~~~   
+  -or-  
+  * **Code:** 400 
+  ~~~
+  {
+    "message": "Invalid parameters"
+  }
+  ~~~  
+  
+**Get followers**
+----
+This API is to get followers by reference.
+* **URL**  
+  /user-activity/follows/followers?reference_type=AUTHOR&reference_id=1234567890
+* **Method:**  
+  GET
+* **Headers:**  
+  User-Id
+* **Response**  
+  * **Code:** 200 
+  ~~~
+  {
+    "referenceType": "AUTHOR",
+    "referenceId": 1234567890,
+    "data":[
+      {
+        id:"3489523352453",
+	"user": {
+          "id": 6789012345,
+          "name": "raghu",
+          "profilePicUrl: "/"
+        },
+        "hasAccessToUpdate": true,
+	"state": "FOLLOWING"
+        "dateCreated": "2017-07-29 12:00:00+0530",
+        "dateUpdated": "2017-07-29 12:00:00+0530"
+      },
+      {}
+    ],
+    "cursor": 10,
+    "resultCount": 5,
+    "numberFound": 30
+  }
+  ~~~
+  -or-  
+  * **Code:** 400 
+  ~~~
+  {
+    "message": "Invalid parameters"
+  }
+  ~~~
+  -or-  
+  * **Code:** 404 
+  ~~~
+  {
+    "message": "Reference not found"
+  }
+  ~~~  
+  
+**Get following list**
+----
+This API is to get following list.
+* **URL**  
+  /user-activity/follows/following
+* **Method:**  
+  GET
+* **Headers:**  
+  User-Id
+* **Response**  
+  * **Code:** 200 
+  ~~~
+  {
+    
+    "data":[
+      {
+        referenceType: "AUTHOR"
+        refereceId:"3489523352453",
+	"user": {
+          "id": 6789012345,
+          "name": "raghu",
+          "profilePicUrl: "/"
+        },
+        "hasAccessToUpdate": true,
+	"state": "FOLLOWING"
+        "dateCreated": "2017-07-29 12:00:00+0530",
+        "dateUpdated": "2017-07-29 12:00:00+0530"
+      },
+      {}
+    ],
+    "cursor": 10,
+    "resultCount": 5,
+    "numberFound": 30
+  }
+  ~~~
+  -or-  
+  * **Code:** 400 
+  ~~~
+  {
+    "message": "Invalid parameters"
+  }
+  ~~~
+
+**Update Follow**  
+----
+This API is to update a follow.
+* **URL**  
+  /user-activity/follows/1234567890
+* **Method:**  
+  PATCH
+* **Headers:**  
+  User-Id
+* **Request Body**
+  ~~~
+  {
+    "state": "UNFOLLOWED"
+  }
+  ~~~  
+* **Response**  
+  * **Code:** 200 
+  ~~~
+  {
+    "message": "Successfully updated follow"
+  }
+  ~~~
+  -or-  
+  * **Code:** 400 
+  ~~~
+  {
+    "message": "Invalid parameters"
+  }
+  ~~~
+  -or-  
+  * **Code:** 404 
+  ~~~
+  {
+    "message": "Follow not found"
   }
   ~~~   
