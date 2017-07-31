@@ -6,7 +6,7 @@ This API is to post a review along with the rating.
 * **Method:**  
   POST
 * **Headers:**  
-  User-Id (Requests coming from internal services)
+  User-Id
 * **Request Body**
   ~~~
   {
@@ -20,7 +20,7 @@ This API is to post a review along with the rating.
   * **Code:** 200 
   ~~~
   {
-    "message": "Successfully added the review"
+    "message": "Successfully added the rate-review"
   }
   ~~~   
   -or-  
@@ -33,13 +33,13 @@ This API is to post a review along with the rating.
   
 **Get Rate-Review by id**  
 ----
-This API is to get 'Rate-Review' by id.
+This API is to get rate-review by id.
 * **URL**  
   /user-activity/rate-reviews/0123456789?fields=comments
 * **Method:**  
   GET
 * **Headers:**  
-  User-Id (Requests coming from internal services)  
+  User-Id
 * **Response**  
   * **Code:** 200 
   ~~~
@@ -56,16 +56,16 @@ This API is to get 'Rate-Review' by id.
     },
     "votesCount": 234,
     "comments": {
-	    "data": [
-        {
-		      "id": 7890123456,
-    		  "comment": "Well said",
-		      "user": {
-    		    "id": 6789012345,
+    "data": [
+    	{
+		"id": 7890123456,
+    		"comment": "Well said",
+		"user": {
+    			"id": 6789012345,
 		        "name": "raghu",
 		        "profilePicUrl: "/"
-          },
-          "voteCount": 12
+          	},
+          "voteCount": 12,
           "state": "ACTIVE",
           "dateCreated": "2017-07-29 12:00:00+0530",
           "dateUpdated": "2017-07-29 12:00:00+0530"
@@ -101,13 +101,13 @@ This API is to get 'Rate-Review' by id.
    
 **Get Rate-Review by reference id**
 ----
-This API is to get 'Rate-Review's by reference.
+This API is to get rate-reviews by reference.
 * **URL**  
   /user-activity/rate-reviews?reference_type=PRATILIPI&reference_id=1234567890
 * **Method:**  
   GET
 * **Headers:**  
-  User-Id (Requests coming from internal services)  
+  User-Id
 * **Response**  
   * **Code:** 200 
   ~~~
@@ -140,13 +140,13 @@ This API is to get 'Rate-Review's by reference.
   
 **Update Rate-Review**  
 ----
-This API is to update a 'Rate-Review'.
+This API is to update a rate-review.
 * **URL**  
-  /user-activity/rate-reviews?reference_type=PRATILIPI&reference_id=1234567890
+  /user-activity/rate-reviews/1234567890
 * **Method:**  
   PATCH
 * **Headers:**  
-  User-Id (Requests coming from internal services)  
+  User-Id
 * **Response**  
   * **Code:** 200 
   ~~~
@@ -165,19 +165,19 @@ This API is to update a 'Rate-Review'.
   * **Code:** 404 
   ~~~
   {
-    "message": "Reference not found"
+    "message": "Rate-Review not found"
   }
   ~~~
    
 **Delete Rate-Review**  
 ----
-This API is to delete a 'Rate-Review'.
+This API is to delete a rate-review.
 * **URL**  
   /user-activity/rate-reviews/1234567890
 * **Method:**  
   DELETE
 * **Headers:**  
-  User-Id (Requests coming from internal services) 
+  User-Id
 * **Response**  
   * **Code:** 200 
   ~~~
@@ -196,6 +196,184 @@ This API is to delete a 'Rate-Review'.
   * **Code:** 404 
   ~~~
   {
+    "message": "Rate-Review not found"
+  }
+  ~~~
+
+
+**Post a Comment**
+----
+This API is to post a comment.  
+* **URL**  
+  /user-activity/comments
+* **Method:**  
+  POST
+* **Headers:**  
+  User-Id
+* **Request Body**
+  ~~~
+  {
+    "comment": "Very nice review.",
+    "referenceType": "REVIEW",
+    "referenceId": 1234567890
+  }
+  ~~~
+* **Response**  
+  * **Code:** 200 
+  ~~~
+  {
+    "message": "Successfully added the comment"
+  }
+  ~~~   
+  -or-  
+  * **Code:** 400 
+  ~~~
+  {
+    "message": "Invalid parameters"
+  }
+  ~~~    
+ 
+**Get Comment by id**  
+----
+This API is to get Comment by id.
+* **URL**  
+  /user-activity/comments/0123456789
+* **Method:**  
+  GET
+* **Headers:**  
+  User-Id
+* **Response**  
+  * **Code:** 200 
+  ~~~
+  {
+    "id": 7890123456,
+    "comment": "Well said",
+    "referenceType": "REVIEW",
+    "referenceId": "9012345678"
+    "user": {
+      "id": 6789012345,
+      "name": "raghu",
+      "profilePicUrl: "/"
+    },
+    "voteCount": 12,
+    "state": "ACTIVE",
+    "hasAccessToUpdate": true,
+    "dateCreated": "2017-07-29 12:00:00+0530",
+    "dateUpdated": "2017-07-29 12:00:00+0530"
+  }
+  ~~~   
+  -or-  
+  * **Code:** 400 
+  ~~~
+  {
+    "message": "Invalid parameters"
+  }
+  ~~~
+  -or-  
+  * **Code:** 404 
+  ~~~
+  {
+    "message": "Comment not found"
+  }
+  ~~~ 
+  
+**Get Comments by reference id**
+----
+This API is to get Comments by reference.
+* **URL**  
+  /user-activity/comments?reference_type=REVIEW&reference_id=1234567890
+* **Method:**  
+  GET
+* **Headers:**  
+  User-Id
+* **Response**  
+  * **Code:** 200 
+  ~~~
+  {
+    "data":[
+      {
+        // refer 'Get comment by id'
+      },
+      {}
+    ],
+    "cursor": 10,
+    "resultCount": 5,
+    "numberFound": 30
+  }
+  ~~~
+  -or-  
+  * **Code:** 400 
+  ~~~
+  {
+    "message": "Invalid parameters"
+  }
+  ~~~
+  -or-  
+  * **Code:** 404 
+  ~~~
+  {
     "message": "Reference not found"
+  }
+  ~~~  
+  
+**Update Comment**  
+----
+This API is to update a Comment.
+* **URL**  
+  /user-activity/comments/1234567890
+* **Method:**  
+  PATCH
+* **Headers:**  
+  User-Id
+* **Response**  
+  * **Code:** 200 
+  ~~~
+  {
+    "message": "Successfully updated comment"
+  }
+  ~~~
+  -or-  
+  * **Code:** 400 
+  ~~~
+  {
+    "message": "Invalid parameters"
+  }
+  ~~~
+  -or-  
+  * **Code:** 404 
+  ~~~
+  {
+    "message": "Comment not found"
+  }
+  ~~~
+   
+**Delete Rate-Review**  
+----
+This API is to delete a comment.
+* **URL**  
+  /user-activity/comments/1234567890
+* **Method:**  
+  DELETE
+* **Headers:**  
+  User-Id
+* **Response**  
+  * **Code:** 200 
+  ~~~
+  {
+    "message": "Successfully deleted comment"
+  }
+  ~~~
+  -or-  
+  * **Code:** 400 
+  ~~~
+  {
+    "message": "Invalid parameters"
+  }
+  ~~~
+  -or-  
+  * **Code:** 404 
+  ~~~
+  {
+    "message": "Comment not found"
   }
   ~~~
