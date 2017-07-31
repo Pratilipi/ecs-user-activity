@@ -1,4 +1,4 @@
-**Post a rate-review**
+**Post a Rate-Review**
 ----
 This API is to post a review along with the rating.  
 * **URL**  
@@ -31,7 +31,7 @@ This API is to post a review along with the rating.
   }
   ~~~    
   
-**Get rate-review by id**  
+**Get Rate-Review by id**  
 ----
 This API is to get 'Rate-Review' by id.
 * **URL**  
@@ -99,7 +99,7 @@ This API is to get 'Rate-Review' by id.
   }
   ~~~
    
-**Get review by reference id**
+**Get Rate-Review by reference id**
 ----
 This API is to get 'Rate-Review's by reference.
 * **URL**  
