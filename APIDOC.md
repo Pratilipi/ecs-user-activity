@@ -46,32 +46,32 @@ This API is to get rate-review by id.
   {
     "id": 0123456789,
     "rating": 4, 
-	  "review": "Awesome story",
-	  "referenceType": "PRATILIPI",
-	  "referenceId": "9012345678"
-	  "user": {
-		  "id": 8901234567,
-		  "name": "Sam",
-		  "profilePicUrl": "/"
+    "review": "Awesome story",
+    "referenceType": "PRATILIPI",
+    "referenceId": "9012345678"
+    "user": {
+      "id": 8901234567,
+      "name": "Sam",
+      "profilePicUrl": "/"
     },
     "votesCount": 234,
     "comments": {
-    "data": [
-    	{
-		"id": 7890123456,
-    		"comment": "Well said",
-		"user": {
-    			"id": 6789012345,
-		        "name": "raghu",
-		        "profilePicUrl: "/"
-          	},
+      "data": [
+        {
+          "id": 7890123456,
+    	  "comment": "Well said",
+	  "user": {
+    	    "id": 6789012345,
+	    "name": "raghu",
+	    "profilePicUrl: "/"
+          },
           "voteCount": 12,
           "state": "ACTIVE",
           "dateCreated": "2017-07-29 12:00:00+0530",
           "dateUpdated": "2017-07-29 12:00:00+0530"
         },
         {
-	        //...
+	  //...
         }
       ],
       "cursor": 10,
@@ -235,7 +235,7 @@ This API is to post a comment.
  
 **Get Comment by id**  
 ----
-This API is to get Comment by id.
+This API is to get comment by id.
 * **URL**  
   /user-activity/comments/0123456789
 * **Method:**  
@@ -279,7 +279,7 @@ This API is to get Comment by id.
   
 **Get Comments by reference id**
 ----
-This API is to get Comments by reference.
+This API is to get comments by reference.
 * **URL**  
   /user-activity/comments?reference_type=REVIEW&reference_id=1234567890
 * **Method:**  
@@ -318,7 +318,7 @@ This API is to get Comments by reference.
   
 **Update Comment**  
 ----
-This API is to update a Comment.
+This API is to update a comment.
 * **URL**  
   /user-activity/comments/1234567890
 * **Method:**  
@@ -377,3 +377,116 @@ This API is to delete a comment.
     "message": "Comment not found"
   }
   ~~~
+
+**Post a Vote**
+----
+This API is to post a vote.  
+* **URL**  
+  /user-activity/votes
+* **Method:**  
+  POST
+* **Headers:**  
+  User-Id
+* **Request Body**
+  ~~~
+  {
+    "type": "LIKE",
+    "referenceType": "COMMENT",
+    "referenceId": 1234567890
+  }
+  ~~~
+* **Response**  
+  * **Code:** 200 
+  ~~~
+  {
+    "message": "Successfully added the vote"
+  }
+  ~~~   
+  -or-  
+  * **Code:** 400 
+  ~~~
+  {
+    "message": "Invalid parameters"
+  }
+  ~~~  
+  
+**Get votes by reference id**
+----
+This API is to get votes by reference.
+* **URL**  
+  /user-activity/votes?reference_type=COMMENT&reference_id=1234567890
+* **Method:**  
+  GET
+* **Headers:**  
+  User-Id
+* **Response**  
+  * **Code:** 200 
+  ~~~
+  {
+    "data":[
+      {
+        "id": 7890123456,
+        "type": "LIKE",
+        "referenceType": "COMMENT",
+        "referenceId": "9012345678"
+        "user": {
+          "id": 6789012345,
+          "name": "raghu",
+          "profilePicUrl: "/"
+        },
+        "hasAccessToUpdate": true,
+        "dateCreated": "2017-07-29 12:00:00+0530",
+        "dateUpdated": "2017-07-29 12:00:00+0530"
+      },
+      {}
+    ],
+    "cursor": 10,
+    "resultCount": 5,
+    "numberFound": 30
+  }
+  ~~~
+  -or-  
+  * **Code:** 400 
+  ~~~
+  {
+    "message": "Invalid parameters"
+  }
+  ~~~
+  -or-  
+  * **Code:** 404 
+  ~~~
+  {
+    "message": "Reference not found"
+  }
+  ~~~    
+  
+**Update Vote**  
+----
+This API is to update a vote.
+* **URL**  
+  /user-activity/votes/1234567890
+* **Method:**  
+  PATCH
+* **Headers:**  
+  User-Id
+* **Response**  
+  * **Code:** 200 
+  ~~~
+  {
+    "message": "Successfully updated vote"
+  }
+  ~~~
+  -or-  
+  * **Code:** 400 
+  ~~~
+  {
+    "message": "Invalid parameters"
+  }
+  ~~~
+  -or-  
+  * **Code:** 404 
+  ~~~
+  {
+    "message": "Vote not found"
+  }
+  ~~~   
