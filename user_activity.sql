@@ -55,7 +55,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `user_activity`.`comment` (
   `id` BIGINT(20) NOT NULL,
-  `content` LONGTEXT NOT NULL,
+  `comment` LONGTEXT NOT NULL,
   `reference_type` ENUM('REVIEW') NOT NULL,
   `reference_id` BIGINT(20) NOT NULL,
   `user_id` BIGINT(20) NOT NULL,
