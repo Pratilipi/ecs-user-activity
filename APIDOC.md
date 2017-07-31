@@ -442,7 +442,7 @@ This API is to get votes by reference.
         "id": 7890123456,
         "type": "LIKE",
         "referenceType": "COMMENT",
-        "referenceId": "9012345678"
+        "referenceId": "9012345678",
         "user": {
           "id": 6789012345,
           "name": "raghu",
@@ -566,7 +566,7 @@ This API is to get followers by reference.
           "profilePicUrl: "/"
         },
         "hasAccessToUpdate": true,
-        "state": "FOLLOWING"
+        "state": "FOLLOWING",
         "dateCreated": "2017-07-29 12:00:00+0530",
         "dateUpdated": "2017-07-29 12:00:00+0530"
       },
@@ -608,7 +608,7 @@ This API is to get following list.
     
     "data":[
       {
-        referenceType: "AUTHOR"
+        referenceType: "AUTHOR",
         refereceId:"3489523352453",
         "user": {
           "id": 6789012345,
@@ -616,7 +616,7 @@ This API is to get following list.
           "profilePicUrl: "/"
         },
         "hasAccessToUpdate": true,
-        "state": "FOLLOWING"
+        "state": "FOLLOWING",
         "dateCreated": "2017-07-29 12:00:00+0530",
         "dateUpdated": "2017-07-29 12:00:00+0530"
       },
