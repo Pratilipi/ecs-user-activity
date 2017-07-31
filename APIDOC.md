@@ -523,7 +523,7 @@ This API is to follow an author.
 * **Request Body**
   ~~~
   {
-    "referenceType": "COMMENT",
+    "referenceType": "AUTHOR",
     "referenceId": 1234567890
   }
   ~~~
@@ -560,13 +560,13 @@ This API is to get followers by reference.
     "data":[
       {
         id:"3489523352453",
-	"user": {
+        "user": {
           "id": 6789012345,
           "name": "raghu",
           "profilePicUrl: "/"
         },
         "hasAccessToUpdate": true,
-	"state": "FOLLOWING"
+        "state": "FOLLOWING"
         "dateCreated": "2017-07-29 12:00:00+0530",
         "dateUpdated": "2017-07-29 12:00:00+0530"
       },
@@ -610,13 +610,13 @@ This API is to get following list.
       {
         referenceType: "AUTHOR"
         refereceId:"3489523352453",
-	"user": {
+        "user": {
           "id": 6789012345,
           "name": "raghu",
           "profilePicUrl: "/"
         },
         "hasAccessToUpdate": true,
-	"state": "FOLLOWING"
+        "state": "FOLLOWING"
         "dateCreated": "2017-07-29 12:00:00+0530",
         "dateUpdated": "2017-07-29 12:00:00+0530"
       },
@@ -671,3 +671,4 @@ This API is to update a follow.
     "message": "Follow not found"
   }
   ~~~   
+
