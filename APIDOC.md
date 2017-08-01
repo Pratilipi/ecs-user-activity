@@ -546,7 +546,7 @@ This API is to follow an author.
 ----
 This API is to get followers by reference.
 * **URL**  
-  /user-activity/follows/followers?reference_type=AUTHOR&reference_id=1234567890
+  /user-activity/follows/followers?referenceType=AUTHOR&referenceId=1234567890
 * **Method:**  
   GET
 * **Headers:**  
@@ -596,7 +596,7 @@ This API is to get followers by reference.
 ----
 This API is to get following list.
 * **URL**  
-  /user-activity/follows/following
+  /user-activity/follows/following?userId=34786534876534
 * **Method:**  
   GET
 * **Headers:**  
@@ -605,13 +605,12 @@ This API is to get following list.
   * **Code:** 200 
   ~~~
   {
-    
+    "userId": 34786534876534,
     "data":[
       {
-        referenceType: "AUTHOR",
-        refereceId:"3489523352453",
-        "user": {
-          "id": 6789012345,
+	"id": 9928789324503,
+        "author": {
+          "id": 782635827934,
           "name": "raghu",
           "profilePicUrl: "/"
         },
@@ -620,7 +619,9 @@ This API is to get following list.
         "dateCreated": "2017-07-29 12:00:00+0530",
         "dateUpdated": "2017-07-29 12:00:00+0530"
       },
-      {}
+      {
+	//...
+      }
     ],
     "cursor": 10,
     "resultCount": 5,
