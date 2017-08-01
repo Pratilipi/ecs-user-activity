@@ -74,7 +74,7 @@ This API is to get rate-review by id.
 	  //...
         }
       ],
-      "cursor": 10,
+      "cursor": "hof31u98y23hx8y3189upr823y4",
       "resultCount": 5,
       "numberFound": 30
     }
@@ -103,7 +103,7 @@ This API is to get rate-review by id.
 ----
 This API is to get rate-reviews by reference.
 * **URL**  
-  /user-activity/rate-reviews?reference_type=PRATILIPI&reference_id=1234567890
+  /user-activity/rate-reviews?referenceType=PRATILIPI&referenceId=1234567890&cursor=u089x3yrn023ox4y2390x482&resultCount=5
 * **Method:**  
   GET
 * **Headers:**  
@@ -118,7 +118,7 @@ This API is to get rate-reviews by reference.
       },
       {}
     ],
-    "cursor": 10,
+    "cursor": "23y80n49y234tydnr389027ctyp34",
     "resultCount": 5,
     "numberFound": 30
   }
@@ -289,7 +289,7 @@ This API is to get comment by id.
 ----
 This API is to get comments by reference.
 * **URL**  
-  /user-activity/comments?reference_type=REVIEW&reference_id=1234567890
+  /user-activity/comments?referenceType=REVIEW&referenceId=1234567890&cursor=384yn289034y70283xyr234&resultCount=5
 * **Method:**  
   GET
 * **Headers:**  
@@ -304,7 +304,7 @@ This API is to get comments by reference.
       },
       {}
     ],
-    "cursor": 10,
+    "cursor": "23894yxn29038y98273r93xrfp2r",
     "resultCount": 5,
     "numberFound": 30
   }
@@ -428,7 +428,7 @@ This API is to post a vote.
 ----
 This API is to get votes by reference.
 * **URL**  
-  /user-activity/votes?reference_type=COMMENT&reference_id=1234567890
+  /user-activity/votes?referenceType=COMMENT&referenceId=1234567890&cursor=y803y4x02783n9rxy8r38238rn&resultCount=5
 * **Method:**  
   GET
 * **Headers:**  
@@ -437,12 +437,12 @@ This API is to get votes by reference.
   * **Code:** 200 
   ~~~
   {
+    "referenceType": "COMMENT",
+    "referenceId": 1234567890,
     "data":[
       {
         "id": 7890123456,
         "type": "LIKE",
-        "referenceType": "COMMENT",
-        "referenceId": "9012345678",
         "user": {
           "id": 6789012345,
           "name": "raghu",
@@ -454,7 +454,7 @@ This API is to get votes by reference.
       },
       {}
     ],
-    "cursor": 10,
+    "cursor": "23x8923y480nxy23784y3yfx23",
     "resultCount": 5,
     "numberFound": 30
   }
@@ -546,7 +546,7 @@ This API is to follow an author.
 ----
 This API is to get followers by reference.
 * **URL**  
-  /user-activity/follows/followers?referenceType=AUTHOR&referenceId=1234567890
+  /user-activity/follows/followers?referenceType=AUTHOR&referenceId=1234567890&cursor=89323y8x9023h0x8mfh2309fh083&resultCount=5
 * **Method:**  
   GET
 * **Headers:**  
@@ -572,7 +572,7 @@ This API is to get followers by reference.
       },
       {}
     ],
-    "cursor": 10,
+    "cursor": "2i3urnc890234y280yf2349cfy",
     "resultCount": 5,
     "numberFound": 30
   }
@@ -596,7 +596,7 @@ This API is to get followers by reference.
 ----
 This API is to get following list.
 * **URL**  
-  /user-activity/follows/following?userId=34786534876534
+  /user-activity/follows/following?userId=34786534876534&cursor=380n4y238y794yn238ry&resultCount=5
 * **Method:**  
   GET
 * **Headers:**  
@@ -623,7 +623,7 @@ This API is to get following list.
 	//...
       }
     ],
-    "cursor": 10,
+    "cursor": "3489n2308fy230fyx390eu393",
     "resultCount": 5,
     "numberFound": 30
   }
