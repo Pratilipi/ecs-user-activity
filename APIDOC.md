@@ -59,11 +59,11 @@ This API is to get rate-review by id.
       "data": [
         {
           "id": 7890123456,
-    	  "comment": "Well said",
-	  "user": {
-    	    "id": 6789012345,
-	    "name": "raghu",
-	    "profilePicUrl: "/"
+          "comment": "Well said",
+          "user": {
+            "id": 6789012345,
+            "name": "raghu",
+            "profilePicUrl: "/"
           },
           "voteCount": 12,
           "state": "ACTIVE",
@@ -608,7 +608,7 @@ This API is to get following list.
     "userId": 34786534876534,
     "data":[
       {
-	"id": 9928789324503,
+        "id": 9928789324503,
         "author": {
           "id": 782635827934,
           "name": "raghu",
