@@ -7,11 +7,13 @@ var app     = require('./src/app');
 var config = require( './src/config/main' )[ process.env.STAGE || 'local'];
 
 // Initialize MySQL
-const mysqlConnection = mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
-	database: 'testOne',
-});
+//const mysqlConnection = mysql.createConnection({
+//	host: 'localhost',
+//	user: 'root',
+//	database: 'testOne',
+//});
+
+var mysqlConnection;
 
 // Initialize app
 var appInstance = app(mysqlConnection, config);
