@@ -17,7 +17,8 @@ config.prod = {
 };
 
 config.local = {
-  'PORT' : 8080
+  'PORT' : 8080,
+  'GCP_PROJ_ID' : 'devo-pratilipi'
 };
 
 module.exports = config;
