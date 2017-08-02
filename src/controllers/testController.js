@@ -4,8 +4,8 @@ var testRouter = express.Router();
 var testModel;
 
 // Injecting testModel
-function setTestModel(mysql) {
-	testModel = mysql;
+function setTestModel(model) {
+	testModel = model;
 }
 
 // test route

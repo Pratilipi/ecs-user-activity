@@ -11,3 +11,4 @@ env
 *.rdb
 .project
 node_modules/
+lib/

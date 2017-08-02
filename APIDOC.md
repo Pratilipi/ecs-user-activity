@@ -635,6 +635,40 @@ This API is to get following list.
     "message": "Invalid parameters"
   }
   ~~~
+  
+**Is following**
+----
+This API is to check if user is following
+* **URL**  
+  /user-activity/follows/isFollowing?userId=34786534876534&referenceType=AUTHOR&referenceId=95234234343,987637846534
+* **Method:**  
+  GET
+* **Headers:**  
+  User-Id
+* **Response**  
+  * **Code:** 200 
+  ~~~
+  {
+    "userId": 34786534876534,
+    "data":[
+      {
+        "following": true,
+        "referenceId": 95234234343,
+        "referenceType": "AUTHOR"
+      },
+      {
+	    //...
+      }
+    ]
+  }
+  ~~~
+  -or-  
+  * **Code:** 400 
+  ~~~
+  {
+    "message": "Invalid parameters"
+  }
+  ~~~    
 
 **Update Follow**  
 ----
@@ -673,3 +707,35 @@ This API is to update a follow.
   }
   ~~~   
 
+**Is Added to library**
+----
+This API is to check if user has added pratilipi to library
+* **URL**  
+  /user-activity/library/isAdded?userId=34786534876534&pratilipiId=95234234343,987637846534
+* **Method:**  
+  GET
+* **Headers:**  
+  User-Id
+* **Response**  
+  * **Code:** 200 
+  ~~~
+  {
+    "userId": 34786534876534,
+    "data":[
+      {
+        "isAdded": true,
+        "pratilipiId": 95234234343
+      },
+      {
+	//...
+      }
+    ]
+  }
+  ~~~
+  -or-  
+  * **Code:** 400 
+  ~~~
+  {
+    "message": "Invalid parameters"
+  }
+  ~~~  
