@@ -9,3 +9,5 @@ venv/*
 env
 .env
 *.rdb
+.project
+node_modules/
