@@ -6,5 +6,6 @@ RUN npm install
 EXPOSE 80
 
 COPY src src
+COPY server.js .
 
 CMD [ "npm", "start" ]
