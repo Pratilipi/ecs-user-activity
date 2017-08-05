@@ -6,6 +6,7 @@ var app     = require('./src/app');
 // Load Configurations
 var config = require( './src/config/main' )[ process.env.STAGE || 'local'];
 
+
 // Initialize MySQL
 //const mysqlConnection = mysql.createConnection({
 //	host: 'localhost',
@@ -23,5 +24,5 @@ var server = appInstance.listen(config.PORT, function () {
     console.log('Listening on %d', config.PORT);
 });
 
-module.exports = server
+module.exports = server;
 

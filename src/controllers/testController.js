@@ -1,20 +1,26 @@
 var express = require('express');
 var testRouter = express.Router();
 
-var testModel;
-
-// Injecting testModel
-function setTestModel(model) {
-	testModel = model;
-}
-
-// test route
 testRouter.get('/', function (req, res) {
-	testModel.getAll();
+	console.log("in the test request ");
+	var that = this;
+	var promise = testModel.getAll();
+	
+	promise.then((rows) => {
+		console.log("sending response "+ rows);
+	})
+	.catch((err) => {
+		console.log("error "+err);
+	});
+	
     res.send('test home page');
 });
 
-module.exports = {
-	testRouter,
-	setTestModel
+var testModel;
+function TestController (testModelInst) {
+	testModel = testModelInst;
 }
+
+TestController.prototype.testRouter = testRouter;
+
+module.exports = TestController

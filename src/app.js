@@ -1,11 +1,12 @@
 // Imports
 var express      = require('express');
+var logger = require('morgan');
 var testModel	 = require('./models/testModel');
 var libraryModel = require('./models/libraryModel');
-var followModel = require('./models/followModel');
+var followModel  = require('./models/followModel');
 var testController    = require('./controllers/testController');
 var libraryController = require('./controllers/libraryController');
-var followController = require('./controllers/followController');
+var followController  = require('./controllers/followController');
 var app = null;
 
 function initializeApp(mysql, config) {
@@ -15,6 +16,8 @@ function initializeApp(mysql, config) {
         return app;
     }
 	app = express();
+	
+	app.use(logger('short'));
 	
 	// Health check request
 	app.get("/health",function (req,res){
@@ -27,16 +30,10 @@ function initializeApp(mysql, config) {
 	var libraryModelInstance   = new libraryModel( { projectId: process.env.GCP_PROJ_ID || config.GCP_PROJ_ID} );
 	var followModelInstance   = new followModel( { projectId: process.env.GCP_PROJ_ID || config.GCP_PROJ_ID} );
 	
-	// Initialize routes
+	
 	console.log("Initializing routes...");
-	testController.setTestModel(testModelInstance);
-	libraryController.setLibraryModel(libraryModelInstance);
-	followController.setFollowModel(followModelInstance);
-
-	// Mapping controllers
-	app.use("/test",testController.testRouter);
-	app.use("/library",libraryController.libraryRouter);
-	app.use("/follows",followController.followRouter);
+	app.use("/test",new testController(testModelInstance).testRouter);
+	
 	
 	return app;
 }

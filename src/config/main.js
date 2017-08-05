@@ -10,7 +10,6 @@ config.gamma = {
   'SERVICE': 'ecs-user-activity-gamma'
 };
 
-
 config.prod = {
   'PORT': 80,
   'SERVICE': 'ecs-user-activity-prod'
