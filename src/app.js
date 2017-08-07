@@ -34,6 +34,11 @@ function initializeApp(mysql, config) {
 	console.log("Initializing routes...");
 	app.use("/test",new testController(testModelInstance).testRouter);
 	
+	libraryController.setLibraryModel(libraryModelInstance);
+	followController.setFollowModel(followModelInstance);
+	
+	app.use("/library",libraryController.libraryRouter);
+	app.use("/follows",followController.followRouter);
 	
 	return app;
 }
