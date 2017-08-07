@@ -1,15 +1,13 @@
 var express = require('express');
-var libraryRouter = express.Router();
-
-var libraryModel;
+var router = express.Router();
 
 // Injecting testModel
-function setLibraryModel(model) {
-	libraryModel = model;
-}
+//function setLibraryModel(model) {
+//	libraryModel = model;
+//}
 
 // library route
-libraryRouter.get('/isAdded', function (req, res) {
+router.get('/isAdded', function (req, res) {
 	
 	var userId = req.query.userId;
 	var pratilipiIds = req.query.pratilipiId;
@@ -39,7 +37,7 @@ libraryRouter.get('/isAdded', function (req, res) {
 });
 
 
-libraryRouter.post('/', function (req, res) {
+router.post('/', function (req, res) {
 	console.log("inserting ..!!!");
 	libraryModel.insert();
 });
@@ -55,7 +53,16 @@ function isAddedResponseWrapper(userId,data) {
 	this.data = data;
 }
 
-module.exports = {
-	libraryRouter,
-	setLibraryModel
+var libraryModel;
+function LibraryController (libraryModelInst) {
+	libraryModel = libraryModelInst;
 }
+
+LibraryController.prototype.router = router;
+
+module.exports = LibraryController;
+
+//module.exports = {
+//	libraryRouter,
+//	setLibraryModel
+//}

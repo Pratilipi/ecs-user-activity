@@ -23,4 +23,4 @@ function TestController (testModelInst) {
 
 TestController.prototype.testRouter = testRouter;
 
-module.exports = TestController
+module.exports = TestController;
