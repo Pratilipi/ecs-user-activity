@@ -39,14 +39,24 @@ function initializeApp(mysql, config) {
 	var commentModelInstance = new commentModel(mysql);
 	var voteModelInstance = new voteModel(mysql);
 	
+
+	// Handle references
+	app.use(["/:referenceType/:referenceId/rate-reviews","/:referenceType/:referenceId/comments"], function (req,res,next) {
+		req.referenceType = req.params.referenceType;
+		req.referenceId = req.params.referenceId;
+		console.log("references middleware "+req.params.referenceType);
+		next();
+	});
 	
+	
+	// Initialize controllers
 	console.log("Initializing routes...");
 	app.use("/test",new testController(testModelInstance).testRouter);
 	app.use("/library", new libraryController(libraryModelInstance).router);
 	app.use("/follows", new followController(followModelInstance).router);
-	app.use("/rate-reviews", new rateReviewController(rateReviewModelInstance).router);
-	app.use("/comments", new commentController(commentModelInstance).router);
-	app.use("/votes", new voteController(voteModelInstance).router);
+	app.use("/:referenceType/:referenceId/rate-reviews", new rateReviewController(rateReviewModelInstance).router);
+	app.use("/:referenceType/:referenceId/comments", new commentController(commentModelInstance).router);
+	app.use("/:referenceType/:referenceId/votes", new voteController(voteModelInstance).router);
 	
 	
 	return app;
