@@ -1,15 +1,13 @@
 var express = require('express');
-var followRouter = express.Router();
-
-var followModel;
+var router = express.Router();
 
 // Injecting testModel
-function setFollowModel(model) {
-	followModel = model;
-}
+//function setFollowModel(model) {
+//	followModel = model;
+//}
 
 // follow route
-followRouter.get('/isFollowing', function (req, res) {
+router.get('/isFollowing', function (req, res) {
 	
 	var userId = req.query.userId;
 	var referenceType = req.query.referenceType;
@@ -40,7 +38,7 @@ followRouter.get('/isFollowing', function (req, res) {
 });
 
 
-followRouter.post('/', function (req, res) {
+router.post('/', function (req, res) {
 	console.log("inserting ..!!!");
 	followModel.insert();
 });
@@ -57,7 +55,16 @@ function isFollowingResponseWrapper(userId,data) {
 	this.data = data;
 }
 
-module.exports = {
-	followRouter,
-	setFollowModel
+var followModel;
+function FollowController (followModelInst) {
+	followModel = followModelInst;
 }
+
+FollowController.prototype.router = router;
+
+module.exports = FollowController;
+//
+//module.exports = {
+//	followRouter,
+//	setFollowModel
+//}
