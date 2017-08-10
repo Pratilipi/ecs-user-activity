@@ -2,7 +2,7 @@
 ----
 This API is to post a review along with the rating.  
 * **URL**  
-  /user-activity/rate-reviews
+  /user-activity/pratilipi/7890123456/rate-reviews
 * **Method:**  
   POST
 * **Headers:**  
@@ -11,16 +11,29 @@ This API is to post a review along with the rating.
   ~~~
   {
     "rating": 4,
-    "review": "This is a very good story.",
-    "referenceType": "PRATILIPI",
-    "referenceId": 1234567890
+    "review": "This is a very good story."
   }
   ~~~
 * **Response**  
-  * **Code:** 200 
+  * **Code:** 201 
   ~~~
   {
-    "message": "Successfully added the rate-review"
+    "id": 0123456789,
+    "rating": 4, 
+    "review": "Awesome story",
+    "referenceType": "PRATILIPI",
+    "referenceId": "9012345678"
+    "user": {
+      "id": 8901234567,
+      "name": "Sam",
+      "profilePicUrl": "/"
+    },
+    "votesCount": 234,
+    "commentsCount": 13,
+    "hasAccessToUpdate": true,
+    "state": "SUBMITTED",
+    "dateCreated": "2017-07-29 12:00:00+0530",
+    "dateUpdated": "2017-07-29 12:00:00+0530"
   }
   ~~~   
   -or-  
@@ -35,7 +48,7 @@ This API is to post a review along with the rating.
 ----
 This API is to get rate-review by id.
 * **URL**  
-  /user-activity/rate-reviews/0123456789?fields=comments
+  /user-activity/pratilipi/7890123456/rate-reviews/0123456789?includes=comments
 * **Method:**  
   GET
 * **Headers:**  
@@ -55,6 +68,7 @@ This API is to get rate-review by id.
       "profilePicUrl": "/"
     },
     "votesCount": 234,
+    "commentsCount": 13,
     "comments": {
       "data": [
         {
@@ -103,7 +117,7 @@ This API is to get rate-review by id.
 ----
 This API is to get rate-reviews by reference.
 * **URL**  
-  /user-activity/rate-reviews?referenceType=PRATILIPI&referenceId=1234567890&cursor=u089x3yrn023ox4y2390x482&resultCount=5
+  /user-activity/pratilipi/7890123456/rate-reviews?cursor=u089x3yrn023ox4y2390x482&resultCount=5
 * **Method:**  
   GET
 * **Headers:**  
@@ -114,7 +128,22 @@ This API is to get rate-reviews by reference.
   {
     "data":[
       {
-        // refer 'Get review by id'
+        "id": 0123456789,
+        "rating": 4, 
+        "review": "Awesome story",
+        "referenceType": "PRATILIPI",
+        "referenceId": "9012345678"
+        "user": {
+          "id": 8901234567,
+          "name": "Sam",
+          "profilePicUrl": "/"
+        },
+        "votesCount": 234,
+        "commentsCount": 13,
+        "hasAccessToUpdate": true,
+        "state": "SUBMITTED",
+        "dateCreated": "2017-07-29 12:00:00+0530",
+        "dateUpdated": "2017-07-29 12:00:00+0530"
       },
       {}
     ],
@@ -142,7 +171,7 @@ This API is to get rate-reviews by reference.
 ----
 This API is to update a rate-review.
 * **URL**  
-  /user-activity/rate-reviews/1234567890
+  /user-activity/pratilipi/7890123456/rate-reviews/1234567890
 * **Method:**  
   PATCH
 * **Headers:**  
@@ -181,7 +210,7 @@ This API is to update a rate-review.
 ----
 This API is to delete a rate-review.
 * **URL**  
-  /user-activity/rate-reviews/1234567890
+  /user-activity/pratilipi/7890123456/rate-reviews/1234567890
 * **Method:**  
   DELETE
 * **Headers:**  
@@ -213,7 +242,7 @@ This API is to delete a rate-review.
 ----
 This API is to post a comment.  
 * **URL**  
-  /user-activity/comments
+  /user-activity/rate-review/8901234567/comments
 * **Method:**  
   POST
 * **Headers:**  
@@ -221,9 +250,7 @@ This API is to post a comment.
 * **Request Body**
   ~~~
   {
-    "comment": "Very nice review.",
-    "referenceType": "REVIEW",
-    "referenceId": 1234567890
+    "comment": "Very nice review."
   }
   ~~~
 * **Response**  
@@ -245,7 +272,7 @@ This API is to post a comment.
 ----
 This API is to get comment by id.
 * **URL**  
-  /user-activity/comments/0123456789
+  /user-activity/rate-review/8901234567/comments/0123456789
 * **Method:**  
   GET
 * **Headers:**  
@@ -289,7 +316,7 @@ This API is to get comment by id.
 ----
 This API is to get comments by reference.
 * **URL**  
-  /user-activity/comments?referenceType=REVIEW&referenceId=1234567890&cursor=384yn289034y70283xyr234&resultCount=5
+  /user-activity/rate-review/8901234567/comments?cursor=384yn289034y70283xyr234&resultCount=5
 * **Method:**  
   GET
 * **Headers:**  
@@ -328,7 +355,7 @@ This API is to get comments by reference.
 ----
 This API is to update a comment.
 * **URL**  
-  /user-activity/comments/1234567890
+  /user-activity/rate-review/8901234567/comments/1234567890
 * **Method:**  
   PATCH
 * **Headers:**  
@@ -365,7 +392,7 @@ This API is to update a comment.
 ----
 This API is to delete a comment.
 * **URL**  
-  /user-activity/comments/1234567890
+  /user-activity/rate-review/8901234567/comments/1234567890
 * **Method:**  
   DELETE
 * **Headers:**  
@@ -396,7 +423,7 @@ This API is to delete a comment.
 ----
 This API is to post a vote.  
 * **URL**  
-  /user-activity/votes
+  /user-activity/comment/9012345678/votes
 * **Method:**  
   POST
 * **Headers:**  
