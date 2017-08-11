@@ -6,7 +6,7 @@ This API is to post a review along with the rating.
 * **Method:**  
   POST
 * **Headers:**  
-  User-Id
+  User-Id (Clients would be sending Access-Token, 'auth' service internally converts Access-Token to User-Id)
 * **Request Body**
   ~~~
   {
@@ -32,6 +32,7 @@ This API is to post a review along with the rating.
     "commentsCount": 13,
     "hasAccessToUpdate": true,
     "state": "SUBMITTED",
+    'relatedTime': "23 mins ago",
     "dateCreated": "2017-07-29 12:00:00+0530",
     "dateUpdated": "2017-07-29 12:00:00+0530"
   }
@@ -61,7 +62,7 @@ This API is to get rate-review by id.
     "rating": 4, 
     "review": "Awesome story",
     "referenceType": "PRATILIPI",
-    "referenceId": "9012345678"
+    "referenceId": "9012345678",
     "user": {
       "id": 8901234567,
       "name": "Sam",
@@ -79,8 +80,10 @@ This API is to get rate-review by id.
             "name": "raghu",
             "profilePicUrl: "/"
           },
-          "voteCount": 12,
+          "votesCount": 12,
+          "hasAccessToUpdate": true,
           "state": "ACTIVE",
+          'relatedTime': "23 mins ago",
           "dateCreated": "2017-07-29 12:00:00+0530",
           "dateUpdated": "2017-07-29 12:00:00+0530"
         },
@@ -94,6 +97,7 @@ This API is to get rate-review by id.
     }
     "hasAccessToUpdate": true,
     "state": "SUBMITTED",
+    'relatedTime': "23 mins ago",
     "dateCreated": "2017-07-29 12:00:00+0530",
     "dateUpdated": "2017-07-29 12:00:00+0530"
   }
@@ -142,6 +146,7 @@ This API is to get rate-reviews by reference.
         "commentsCount": 13,
         "hasAccessToUpdate": true,
         "state": "SUBMITTED",
+        'relatedTime': "23 mins ago",
         "dateCreated": "2017-07-29 12:00:00+0530",
         "dateUpdated": "2017-07-29 12:00:00+0530"
       },
