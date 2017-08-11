@@ -32,7 +32,7 @@ This API is to post a review along with the rating.
     "commentsCount": 13,
     "hasAccessToUpdate": true,
     "state": "SUBMITTED",
-    'relatedTime': "23 mins ago",
+    'relativeTime': "23 mins ago",
     "dateCreated": "2017-07-29 12:00:00+0530",
     "dateUpdated": "2017-07-29 12:00:00+0530"
   }
@@ -83,7 +83,7 @@ This API is to get rate-review by id.
           "votesCount": 12,
           "hasAccessToUpdate": true,
           "state": "ACTIVE",
-          'relatedTime': "23 mins ago",
+          'relativeTime': "23 mins ago",
           "dateCreated": "2017-07-29 12:00:00+0530",
           "dateUpdated": "2017-07-29 12:00:00+0530"
         },
@@ -97,7 +97,7 @@ This API is to get rate-review by id.
     }
     "hasAccessToUpdate": true,
     "state": "SUBMITTED",
-    'relatedTime': "23 mins ago",
+    'relativeTime': "23 mins ago",
     "dateCreated": "2017-07-29 12:00:00+0530",
     "dateUpdated": "2017-07-29 12:00:00+0530"
   }
@@ -146,7 +146,7 @@ This API is to get rate-reviews by reference.
         "commentsCount": 13,
         "hasAccessToUpdate": true,
         "state": "SUBMITTED",
-        'relatedTime': "23 mins ago",
+        'relativeTime': "23 mins ago",
         "dateCreated": "2017-07-29 12:00:00+0530",
         "dateUpdated": "2017-07-29 12:00:00+0530"
       },
