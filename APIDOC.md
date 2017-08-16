@@ -28,7 +28,7 @@ This API is to post a review along with the rating.
       "name": "Sam",
       "profilePicUrl": "/"
     },
-    "votesCount": 234,
+    "likesCount": 234,
     "commentsCount": 13,
     "hasAccessToUpdate": true,
     "state": "SUBMITTED",
@@ -68,7 +68,7 @@ This API is to get rate-review by id.
       "name": "Sam",
       "profilePicUrl": "/"
     },
-    "votesCount": 234,
+    "likesCount": 234,
     "commentsCount": 13,
     "comments": {
       "data": [
@@ -80,7 +80,7 @@ This API is to get rate-review by id.
             "name": "raghu",
             "profilePicUrl: "/"
           },
-          "votesCount": 12,
+          "likesCount": 12,
           "hasAccessToUpdate": true,
           "state": "ACTIVE",
           'relativeTime': "23 mins ago",
@@ -142,7 +142,7 @@ This API is to get rate-reviews by reference.
           "name": "Sam",
           "profilePicUrl": "/"
         },
-        "votesCount": 234,
+        "likesCount": 234,
         "commentsCount": 13,
         "hasAccessToUpdate": true,
         "state": "SUBMITTED",
@@ -460,7 +460,7 @@ This API is to post a vote.
 ----
 This API is to get votes by reference.
 * **URL**  
-  /user-activity/votes?referenceType=COMMENT&referenceId=1234567890&cursor=y803y4x02783n9rxy8r38238rn&resultCount=5
+  /user-activity/votes?referenceType=COMMENT&referenceId=1234567890&type=LIKE&cursor=y803y4x02783n9rxy8r38238rn&resultCount=5
 * **Method:**  
   GET
 * **Headers:**  

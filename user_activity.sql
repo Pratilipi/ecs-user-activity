@@ -112,7 +112,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `user_activity`.`count_lookup` (
   `reference_type` ENUM('PRATILIPI', 'AUTHOR', 'RATE_REVIEW', 'COMMENT') NOT NULL,
   `reference_id` BIGINT(20) UNSIGNED NOT NULL,
-  `count_type` ENUM('RATE', 'REVIEW', 'COMMENT', 'VOTE', 'FOLLOW') NOT NULL,
+  `count_type` ENUM('RATE', 'REVIEW', 'COMMENT', 'LIKE', 'FOLLOW') NOT NULL,
   `count` INT UNSIGNED ZEROFILL NOT NULL,
   `date_updated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   UNIQUE KEY `reference_id_count_type` (`reference_id`,`count_type`))
