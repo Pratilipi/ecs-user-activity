@@ -1,10 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-// Injecting testModel
-//function setFollowModel(model) {
-//	followModel = model;
-//}
 
 // follow route
 router.get('/isFollowing', function (req, res) {
@@ -56,15 +52,10 @@ function isFollowingResponseWrapper(userId,data) {
 }
 
 var followModel;
-function FollowController (followModelInst) {
+function Follow (followModelInst) {
 	followModel = followModelInst;
 }
 
-FollowController.prototype.router = router;
+Follow.prototype.router = router;
 
-module.exports = FollowController;
-//
-//module.exports = {
-//	followRouter,
-//	setFollowModel
-//}
+module.exports = Follow;

@@ -1,18 +1,23 @@
 // Imports
 var express      = require('express');
+var co = require('co');
+var wrap = require('co-express');
 var logger = require('morgan');
-var testModel	 = require('./models/testModel');
-var libraryModel = require('./models/libraryModel');
-var followModel  = require('./models/followModel');
-var rateReviewModel = require('./models/rateReviewModel');
-var commentModel = require('./models/commentModel');
-var voteModel = require('./models/voteModel');
-var testController    = require('./controllers/testController');
-var libraryController = require('./controllers/libraryController');
-var followController  = require('./controllers/followController');
-var rateReviewController = require('./controllers/rateReviewController');
-var commentController = require('./controllers/commentController');
-var voteController = require('./controllers/voteController');
+var testModel	 = require('./models/test');
+var libraryModel = require('./models/library');
+var followModel  = require('./models/follow');
+var rateReviewModel = require('./models/rateReview');
+var commentModel = require('./models/comment');
+var voteModel = require('./models/vote');
+var countLookupModel = require('./models/countLookup');
+var testController    = require('./controllers/test');
+var libraryController = require('./controllers/library');
+var followController  = require('./controllers/follow');
+var rateReviewController = require('./controllers/rateReview');
+var commentController = require('./controllers/comment');
+var voteController = require('./controllers/vote');
+var userUtil = require('./utils/user');
+
 var app = null;
 
 function initializeApp(mysql, config) {
@@ -30,21 +35,39 @@ function initializeApp(mysql, config) {
 		res.status(200).send("App is healthy!!!!");
 	});
 	
+	// Initialize user util
+	var userUtilInstance = new userUtil();
+	
 	// Initialize models
 	console.log("Initializing models...");
-	var testModelInstance = new testModel(mysql);
-	var libraryModelInstance   = new libraryModel( { projectId: process.env.GCP_PROJ_ID || config.GCP_PROJ_ID} );
-	var followModelInstance   = new followModel( { projectId: process.env.GCP_PROJ_ID || config.GCP_PROJ_ID} );
-	var rateReviewModelInstance = new rateReviewModel(mysql);
-	var commentModelInstance = new commentModel(mysql);
-	var voteModelInstance = new voteModel(mysql);
-	
+	var testModelInstance        = new testModel(mysql);
+	var libraryModelInstance     = new libraryModel( { projectId: process.env.GCP_PROJ_ID || config.GCP_PROJ_ID} );
+	var followModelInstance      = new followModel( { projectId: process.env.GCP_PROJ_ID || config.GCP_PROJ_ID} );
+	var rateReviewModelInstance  = new rateReviewModel(mysql);
+	var commentModelInstance     = new commentModel(mysql);
+	var voteModelInstance        = new voteModel(mysql);
+	var countLookupModelInstance = new countLookupModel(mysql);
 
+	
+	// Get User-Id from header
+	app.use("/", wrap(function * (req, res, next) {
+		var uid = req.headers['user-id'];
+		req.customParams = {};
+		req.customParams.userId = uid;
+		next();
+	}));
+	
+	// Setting response header to json
+	app.use("/", function (req, res, next) {
+		res.setHeader('content-type', 'json/application');
+		next();
+	});
+	
+	
 	// Handle references
 	app.use(["/:referenceType/:referenceId/rate-reviews","/:referenceType/:referenceId/comments"], function (req,res,next) {
-		req.referenceType = req.params.referenceType;
-		req.referenceId = req.params.referenceId;
-		console.log("references middleware "+req.params.referenceType);
+		req.customParams.referenceType = req.params.referenceType;
+		req.customParams.referenceId = req.params.referenceId;
 		next();
 	});
 	
@@ -54,7 +77,7 @@ function initializeApp(mysql, config) {
 	app.use("/test",new testController(testModelInstance).testRouter);
 	app.use("/library", new libraryController(libraryModelInstance).router);
 	app.use("/follows", new followController(followModelInstance).router);
-	app.use("/:referenceType/:referenceId/rate-reviews", new rateReviewController(rateReviewModelInstance).router);
+	app.use("/:referenceType/:referenceId/rate-reviews", new rateReviewController(rateReviewModelInstance, countLookupModelInstance, userUtilInstance).router);
 	app.use("/:referenceType/:referenceId/comments", new commentController(commentModelInstance).router);
 	app.use("/:referenceType/:referenceId/votes", new voteController(voteModelInstance).router);
 	

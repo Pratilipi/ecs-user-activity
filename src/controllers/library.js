@@ -1,11 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-// Injecting testModel
-//function setLibraryModel(model) {
-//	libraryModel = model;
-//}
-
 // library route
 router.get('/isAdded', function (req, res) {
 	
@@ -54,15 +49,10 @@ function isAddedResponseWrapper(userId,data) {
 }
 
 var libraryModel;
-function LibraryController (libraryModelInst) {
+function Library (libraryModelInst) {
 	libraryModel = libraryModelInst;
 }
 
-LibraryController.prototype.router = router;
+Library.prototype.router = router;
 
-module.exports = LibraryController;
-
-//module.exports = {
-//	libraryRouter,
-//	setLibraryModel
-//}
+module.exports = Library;

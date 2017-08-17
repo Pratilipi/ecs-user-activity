@@ -11,7 +11,7 @@ var config = require( './src/config/main' )[ process.env.STAGE || 'local'];
 //const mysqlConnection = mysql.createConnection({
 //	host: 'localhost',
 //	user: 'root',
-//	database: 'testOne',
+//	database: 'user_activity',
 //});
 
 var mysqlConnection;

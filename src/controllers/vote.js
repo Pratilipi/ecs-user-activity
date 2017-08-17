@@ -6,10 +6,10 @@ router.get('/', function (req, res) {
 });
 
 var voteModel;
-function VoteController (voteModelInst) {
+function Vote (voteModelInst) {
 	voteModel = voteModelInst;
 }
 
-VoteController.prototype.router = router;
+Vote.prototype.router = router;
 
-module.exports = VoteController;
+module.exports = Vote;

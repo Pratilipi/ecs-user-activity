@@ -17,10 +17,10 @@ testRouter.get('/', function (req, res) {
 });
 
 var testModel;
-function TestController (testModelInst) {
+function Test (testModelInst) {
 	testModel = testModelInst;
 }
 
-TestController.prototype.testRouter = testRouter;
+Test.prototype.testRouter = testRouter;
 
-module.exports = TestController;
+module.exports = Test;
