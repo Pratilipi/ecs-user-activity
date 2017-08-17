@@ -26,7 +26,7 @@ This API is to post a review along with the rating.
     "user": {
       "id": 8901234567,
       "name": "Sam",
-      "profilePicUrl": "/"
+      "profileImageUrl": "/"
     },
     "likesCount": 234,
     "commentsCount": 13,
@@ -66,7 +66,7 @@ This API is to get rate-review by id.
     "user": {
       "id": 8901234567,
       "name": "Sam",
-      "profilePicUrl": "/"
+      "profileImageUrl": "/"
     },
     "likesCount": 234,
     "commentsCount": 13,
@@ -78,7 +78,7 @@ This API is to get rate-review by id.
           "user": {
             "id": 6789012345,
             "name": "raghu",
-            "profilePicUrl: "/"
+            "profileImageUrl: "/"
           },
           "likesCount": 12,
           "hasAccessToUpdate": true,
@@ -140,7 +140,7 @@ This API is to get rate-reviews by reference.
         "user": {
           "id": 8901234567,
           "name": "Sam",
-          "profilePicUrl": "/"
+          "profileImageUrl": "/"
         },
         "likesCount": 234,
         "commentsCount": 13,
@@ -293,7 +293,7 @@ This API is to get comment by id.
     "user": {
       "id": 6789012345,
       "name": "raghu",
-      "profilePicUrl: "/"
+      "profileImageUrl: "/"
     },
     "voteCount": 12,
     "state": "ACTIVE",
@@ -478,7 +478,7 @@ This API is to get votes by reference.
         "user": {
           "id": 6789012345,
           "name": "raghu",
-          "profilePicUrl: "/"
+          "profileImageUrl: "/"
         },
         "hasAccessToUpdate": true,
         "dateCreated": "2017-07-29 12:00:00+0530",
@@ -595,7 +595,7 @@ This API is to get followers by reference.
         "user": {
           "id": 6789012345,
           "name": "raghu",
-          "profilePicUrl: "/"
+          "profileImageUrl: "/"
         },
         "hasAccessToUpdate": true,
         "state": "FOLLOWING",
@@ -644,7 +644,7 @@ This API is to get following list.
         "author": {
           "id": 782635827934,
           "name": "raghu",
-          "profilePicUrl: "/"
+          "profileImageUrl: "/"
         },
         "hasAccessToUpdate": true,
         "state": "FOLLOWING",
