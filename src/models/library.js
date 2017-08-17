@@ -35,13 +35,13 @@ var bookmarks = [
 
 
 
-function LibraryModel (config) {
+function Library (config) {
 	// initialize db utility
 	dbUtility = dbUtility( { projectId: config.projectId, kind: 'USER_PRATILIPI', 'schema' : UserPratilipiSchema} );
 }
 
 //Function to return if Pratilipi is added to library
-LibraryModel.prototype.list = function (ids) {
+Library.prototype.list = function (ids) {
 	console.log(ids);
 	return dbUtility.list(ids)
 	.then ((data) => {
@@ -50,10 +50,10 @@ LibraryModel.prototype.list = function (ids) {
 	throw 'ENTITY NOT FOUND';
 };
 
-LibraryModel.prototype.insert = function () {
+Library.prototype.insert = function () {
 	for (var i = 0; i < bookmarks.length; i++) {
 	  dbUtility.insert(bookmarks[i]);
 	}
 };
 
-module.exports = LibraryModel;
+module.exports = Library;

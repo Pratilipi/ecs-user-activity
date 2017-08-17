@@ -7,10 +7,10 @@ router.get('/', function (req, res) {
 });
 
 var commentModel;
-function CommentController (commentModelInst) {
+function Comment (commentModelInst) {
 	commentModel = commentModelInst;
 }
 
-CommentController.prototype.router = router;
+Comment.prototype.router = router;
 
-module.exports = CommentController;
+module.exports = Comment;

@@ -37,13 +37,13 @@ var follows = [
 	},
 ];
 
-function FollowModel (config) {
+function Follow (config) {
 	// initialize db utility
 	dbUtility = dbUtility( { projectId: config.projectId, kind: 'USER_AUTHOR', 'schema' : UserAuthorSchema} );
 }
 
 //Function to return if user is following author
-FollowModel.prototype.list = function (ids) {
+Follow.prototype.list = function (ids) {
 	console.log(ids);
 	return dbUtility.list(ids)
 	.then ((data) => {
@@ -52,10 +52,10 @@ FollowModel.prototype.list = function (ids) {
 	throw 'ENTITY NOT FOUND';
 };
 
-FollowModel.prototype.insert = function () {
+Follow.prototype.insert = function () {
 	for (var i = 0; i < follows.length; i++) {
 	  dbUtility.insert(follows[i]);
 	}
 };
 
-module.exports = FollowModel;
+module.exports = Follow;
