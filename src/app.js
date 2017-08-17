@@ -1,6 +1,5 @@
 // Imports
 var express      = require('express');
-var co = require('co');
 var wrap = require('co-express');
 var logger = require('morgan');
 var testModel	 = require('./models/test');
