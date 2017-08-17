@@ -121,7 +121,7 @@ This API is to get rate-review by id.
 ----
 This API is to get rate-reviews by reference.
 * **URL**  
-  /user-activity/pratilipi/7890123456/rate-reviews?cursor=u089x3yrn023ox4y2390x482&resultCount=5
+  /user-activity/pratilipi/7890123456/rate-reviews?sort=userReview&cursor=u089x3yrn023ox4y2390x482&resultCount=5
 * **Method:**  
   GET
 * **Headers:**  
