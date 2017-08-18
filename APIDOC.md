@@ -25,14 +25,16 @@ This API is to post a review along with the rating.
     "referenceId": "9012345678"
     "user": {
       "id": 8901234567,
-      "name": "Sam",
+      "fullName": "Sam",
+      "fullNameEn": "Samanth",
+      "displayName": "Giridhar Samanth"
       "profileImageUrl": "/"
     },
     "likesCount": 234,
     "commentsCount": 13,
     "hasAccessToUpdate": true,
     "state": "SUBMITTED",
-    'relativeTime': "23 mins ago",
+    "relativeTime": "23 mins ago",
     "dateCreated": "2017-07-29 12:00:00+0530",
     "dateUpdated": "2017-07-29 12:00:00+0530"
   }
@@ -64,8 +66,10 @@ This API is to get rate-review by id.
     "referenceType": "PRATILIPI",
     "referenceId": "9012345678",
     "user": {
-      "id": 8901234567,
-      "name": "Sam",
+       "id": 8901234567,
+      "fullName": "Sam",
+      "fullNameEn": "Samanth",
+      "displayName": "Giridhar Samanth"
       "profileImageUrl": "/"
     },
     "likesCount": 234,
@@ -76,14 +80,16 @@ This API is to get rate-review by id.
           "id": 7890123456,
           "comment": "Well said",
           "user": {
-            "id": 6789012345,
-            "name": "raghu",
-            "profileImageUrl: "/"
+             "id": 8901234567,
+             "fullName": "Sam",
+             "fullNameEn": "Samanth",
+             "displayName": "Giridhar Samanth"
+             "profileImageUrl": "/"
           },
           "likesCount": 12,
           "hasAccessToUpdate": true,
           "state": "ACTIVE",
-          'relativeTime': "23 mins ago",
+          "relativeTime": "23 mins ago",
           "dateCreated": "2017-07-29 12:00:00+0530",
           "dateUpdated": "2017-07-29 12:00:00+0530"
         },
@@ -97,7 +103,7 @@ This API is to get rate-review by id.
     }
     "hasAccessToUpdate": true,
     "state": "SUBMITTED",
-    'relativeTime': "23 mins ago",
+    "relativeTime": "23 mins ago",
     "dateCreated": "2017-07-29 12:00:00+0530",
     "dateUpdated": "2017-07-29 12:00:00+0530"
   }
@@ -138,15 +144,17 @@ This API is to get rate-reviews by reference.
         "referenceType": "PRATILIPI",
         "referenceId": "9012345678"
         "user": {
-          "id": 8901234567,
-          "name": "Sam",
-          "profileImageUrl": "/"
+           "id": 8901234567,
+           "fullName": "Sam",
+           "fullNameEn": "Samanth",
+           "displayName": "Giridhar Samanth"
+           "profileImageUrl": "/"
         },
         "likesCount": 234,
         "commentsCount": 13,
         "hasAccessToUpdate": true,
         "state": "SUBMITTED",
-        'relativeTime': "23 mins ago",
+        "relativeTime": "23 mins ago",
         "dateCreated": "2017-07-29 12:00:00+0530",
         "dateUpdated": "2017-07-29 12:00:00+0530"
       },
@@ -259,10 +267,26 @@ This API is to post a comment.
   }
   ~~~
 * **Response**  
-  * **Code:** 200 
+  * **Code:** 201 
   ~~~
   {
-    "message": "Successfully added the comment"
+    "id": 7890123456,
+    "comment": "Well said",
+    "referenceType": "REVIEW",
+    "referenceId": "9012345678",
+    "user": {
+       "id": 8901234567,
+       "fullName": "Sam",
+       "fullNameEn": "Samanth",
+       "displayName": "Giridhar Samanth"
+       "profileImageUrl": "/"
+    },
+    "likesCount": 12,
+    "state": "ACTIVE",
+    "hasAccessToUpdate": true,
+    "relativeTime": "23 mins ago",
+    "dateCreated": "2017-07-29 12:00:00+0530",
+    "dateUpdated": "2017-07-29 12:00:00+0530"
   }
   ~~~   
   -or-  
@@ -289,15 +313,18 @@ This API is to get comment by id.
     "id": 7890123456,
     "comment": "Well said",
     "referenceType": "REVIEW",
-    "referenceId": "9012345678"
+    "referenceId": "9012345678",
     "user": {
-      "id": 6789012345,
-      "name": "raghu",
-      "profileImageUrl: "/"
+       "id": 8901234567,
+       "fullName": "Sam",
+       "fullNameEn": "Samanth",
+       "displayName": "Giridhar Samanth"
+       "profileImageUrl": "/"
     },
-    "voteCount": 12,
+    "likesCount": 12,
     "state": "ACTIVE",
     "hasAccessToUpdate": true,
+    "relativeTime": "23 mins ago",
     "dateCreated": "2017-07-29 12:00:00+0530",
     "dateUpdated": "2017-07-29 12:00:00+0530"
   }
@@ -332,7 +359,23 @@ This API is to get comments by reference.
   {
     "data":[
       {
-        // refer 'Get comment by id'
+        "id": 7890123456,
+        "comment": "Well said",
+        "referenceType": "REVIEW",
+        "referenceId": "9012345678",
+        "user": {
+          "id": 8901234567,
+          "fullName": "Sam",
+          "fullNameEn": "Samanth",
+          "displayName": "Giridhar Samanth"
+          "profileImageUrl": "/"
+        },
+        "likesCount": 12,
+        "state": "ACTIVE",
+        "hasAccessToUpdate": true,
+        "relativeTime": "23 mins ago",
+        "dateCreated": "2017-07-29 12:00:00+0530",
+        "dateUpdated": "2017-07-29 12:00:00+0530"
       },
       {}
     ],
@@ -436,9 +479,7 @@ This API is to post a vote.
 * **Request Body**
   ~~~
   {
-    "type": "LIKE",
-    "referenceType": "COMMENT",
-    "referenceId": 1234567890
+    "type": "LIKE"
   }
   ~~~
 * **Response**  
@@ -460,7 +501,7 @@ This API is to post a vote.
 ----
 This API is to get votes by reference.
 * **URL**  
-  /user-activity/votes?referenceType=COMMENT&referenceId=1234567890&type=LIKE&cursor=y803y4x02783n9rxy8r38238rn&resultCount=5
+  /user-activity/comment/9012345678/votes?type=LIKE&cursor=y803y4x02783n9rxy8r38238rn&resultCount=5
 * **Method:**  
   GET
 * **Headers:**  
@@ -469,18 +510,21 @@ This API is to get votes by reference.
   * **Code:** 200 
   ~~~
   {
-    "referenceType": "COMMENT",
-    "referenceId": 1234567890,
     "data":[
       {
         "id": 7890123456,
         "type": "LIKE",
+	"referenceType": "COMMENT",
+        "referenceId": 9012345678,
         "user": {
-          "id": 6789012345,
-          "name": "raghu",
-          "profileImageUrl: "/"
+           "id": 8901234567,
+           "fullName": "Sam",
+           "fullNameEn": "Samanth",
+           "displayName": "Giridhar Samanth"
+           "profileImageUrl": "/"
         },
         "hasAccessToUpdate": true,
+	"relativeTime": "23 mins ago",
         "dateCreated": "2017-07-29 12:00:00+0530",
         "dateUpdated": "2017-07-29 12:00:00+0530"
       },
@@ -510,7 +554,7 @@ This API is to get votes by reference.
 ----
 This API is to update a vote.
 * **URL**  
-  /user-activity/votes/1234567890
+  /user-activity/comment/9012345678/votes/1234567890
 * **Method:**  
   PATCH
 * **Headers:**  
@@ -547,18 +591,11 @@ This API is to update a vote.
 ----
 This API is to follow an author.  
 * **URL**  
-  /user-activity/follows
+  /user-activity/author/3290834720394/follows
 * **Method:**  
   POST
 * **Headers:**  
   User-Id
-* **Request Body**
-  ~~~
-  {
-    "referenceType": "AUTHOR",
-    "referenceId": 1234567890
-  }
-  ~~~
 * **Response**  
   * **Code:** 200 
   ~~~
@@ -578,7 +615,7 @@ This API is to follow an author.
 ----
 This API is to get followers by reference.
 * **URL**  
-  /user-activity/follows/followers?referenceType=AUTHOR&referenceId=1234567890&cursor=89323y8x9023h0x8mfh2309fh083&resultCount=5
+  /user-activity/author/3290834720394/follows/followers?cursor=89323y8x9023h0x8mfh2309fh083&resultCount=5
 * **Method:**  
   GET
 * **Headers:**  
@@ -587,18 +624,21 @@ This API is to get followers by reference.
   * **Code:** 200 
   ~~~
   {
-    "referenceType": "AUTHOR",
-    "referenceId": 1234567890,
     "data":[
       {
         id:"3489523352453",
+	"referenceType": "AUTHOR",
+        "referenceId": 1234567890,
         "user": {
-          "id": 6789012345,
-          "name": "raghu",
-          "profileImageUrl: "/"
+           "id": 8901234567,
+           "fullName": "Sam",
+           "fullNameEn": "Samanth",
+           "displayName": "Giridhar Samanth"
+           "profileImageUrl": "/"
         },
         "hasAccessToUpdate": true,
         "state": "FOLLOWING",
+	"relativeTime": "23 mins ago",
         "dateCreated": "2017-07-29 12:00:00+0530",
         "dateUpdated": "2017-07-29 12:00:00+0530"
       },
@@ -628,7 +668,7 @@ This API is to get followers by reference.
 ----
 This API is to get following list.
 * **URL**  
-  /user-activity/follows/following?userId=34786534876534&cursor=380n4y238y794yn238ry&resultCount=5
+  /user-activity/user/34786534876534/follows/following?cursor=380n4y238y794yn238ry&resultCount=5
 * **Method:**  
   GET
 * **Headers:**  
@@ -637,17 +677,19 @@ This API is to get following list.
   * **Code:** 200 
   ~~~
   {
-    "userId": 34786534876534,
     "data":[
       {
         "id": 9928789324503,
         "author": {
-          "id": 782635827934,
-          "name": "raghu",
-          "profileImageUrl: "/"
+           "id": 8901234567,
+           "fullName": "Sam",
+           "fullNameEn": "Samanth",
+           "displayName": "Giridhar Samanth"
+           "profileImageUrl": "/"
         },
         "hasAccessToUpdate": true,
         "state": "FOLLOWING",
+	"relativeTime": "23 mins ago",
         "dateCreated": "2017-07-29 12:00:00+0530",
         "dateUpdated": "2017-07-29 12:00:00+0530"
       },
