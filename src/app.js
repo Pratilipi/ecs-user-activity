@@ -64,7 +64,7 @@ function initializeApp(mysql, config) {
 	
 	
 	// Handle references
-	app.use(["/:referenceType/:referenceId/rate-reviews","/:referenceType/:referenceId/comments"], function (req,res,next) {
+	app.use(["/:referenceType/:referenceId/rate-reviews","/:referenceType/:referenceId/comments","/:referenceType/:referenceId/votes"], function (req,res,next) {
 		req.customParams.referenceType = req.params.referenceType;
 		req.customParams.referenceId = req.params.referenceId;
 		next();
@@ -78,7 +78,7 @@ function initializeApp(mysql, config) {
 	app.use("/follows", new followController(followModelInstance).router);
 	app.use("/:referenceType/:referenceId/rate-reviews", new rateReviewController(rateReviewModelInstance, countLookupModelInstance, userUtilInstance).router);
 	app.use("/:referenceType/:referenceId/comments", new commentController(commentModelInstance, countLookupModelInstance, userUtilInstance).router);
-	app.use("/:referenceType/:referenceId/votes", new voteController(voteModelInstance).router);
+	app.use("/:referenceType/:referenceId/votes", new voteController(voteModelInstance, countLookupModelInstance, userUtilInstance).router);
 	
 	
 	return app;
