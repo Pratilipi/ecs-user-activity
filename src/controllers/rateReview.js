@@ -57,14 +57,14 @@ router.post('/', wrap(function * (req, res) {
 	}
 	
 	// Get user(who had reviewed) information 
-	var user = yield userUtil.getUserById(rateReview.user_id)
+	var user = yield userUtil.getUserById(userId)
 	.then((data) => {
 		return userEntity.toDTO(data);
 	})
 	.catch((err) => {});
 	
 	if (user == undefined) {
-		user = userEntity.toDTO({id:rateReview.user_id});
+		user = userEntity.toDTO({id:userId});
 	} 
 	
 	// return the new rate-review in response
@@ -193,6 +193,7 @@ router.get('/', wrap(function * (req, res) {
 router.get('/:id', wrap(function * (req, res) {
 	console.log("Controller: Request to get rate-review by id");
 	
+	// Read Parameters
 	var userId        = req.customParams.userId;
 	var rateReviewId  = req.params.id;
 	
@@ -250,7 +251,8 @@ router.get('/:id', wrap(function * (req, res) {
 
 router.patch("/:id", wrap(function * (req, res) {
 	console.log("Controller: Request to update rate-review by id");
-	
+
+	// Read Parameters
 	var rateReviewId  = req.params.id;
 	var rating        = req.body.rating;
 	var review        = req.body.review;
@@ -275,7 +277,7 @@ router.patch("/:id", wrap(function * (req, res) {
 	// Update the database
 	var isUpdated = yield rateReviewModel.update(map,rateReviewId)
 	.then((data) => {
-		// Upate rate and review count, If there is state change update of type 'Delete' or 'Block'
+		// Update rate and review count, If there is state change update of type 'Delete' or 'Block'
 		if (state == 'BLOCKED' || state == 'DELETED') {
 			var countLookup = countLookupEntity.toModel(referenceType,referenceId,'RATE');
 			countLookUpModel.update(countLookup,'MINUS');
@@ -301,6 +303,7 @@ router.patch("/:id", wrap(function * (req, res) {
 router.delete("/:id", wrap(function * (req, res) {
 	console.log("Controller: Request to delete rate-review by id");
 
+	// Read Parameters
 	var userId        = req.customParams.userId;
 	var rateReviewId  = req.params.id;
 	var referenceType = req.customParams.referenceType;

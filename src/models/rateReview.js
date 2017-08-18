@@ -3,7 +3,7 @@ function RateReview(mysql) {
     this.db = mysql;
 }
 
-// function to add rate-review
+// Function to add rate-review
 RateReview.prototype.add = function (rateReview) {
 	
 	console.log("Model: Adding rate-review to database");
@@ -22,8 +22,10 @@ RateReview.prototype.add = function (rateReview) {
     });	
 };
 
-
+// Function to return list of rate-reviews by reference
 RateReview.prototype.getByReference = function (referenceId) {
+	
+	console.log("Model: Getting list of rate-reviews from database by reference id");
 	var that = this;
 	return new Promise(function (resolve, reject) {
 		that.db.query(
@@ -39,7 +41,10 @@ RateReview.prototype.getByReference = function (referenceId) {
 	});
 };
 
+// Function to get rate-review by id
 RateReview.prototype.get = function (id) {
+	
+	console.log("Model: Getting rate-review from database by id");
 	var that = this;
 	return new Promise(function (resolve, reject) {
 		that.db.query(
@@ -55,7 +60,11 @@ RateReview.prototype.get = function (id) {
 	});
 }
 
+
+// Function to update rate-review
 RateReview.prototype.update = function (map,id) {
+	
+	console.log("Model: Update rate-review in database");
 	var that = this;
 	return new Promise(function (resolve, reject) {
 		that.db.query(
@@ -75,11 +84,13 @@ RateReview.prototype.update = function (map,id) {
 	});
 }
 
+
+// Function to delete rate-review
 RateReview.prototype.delete = function (id) {
 	var that = this;
 	return new Promise(function (resolve, reject) {
 		that.db.query(
-				'DELETE FROM RATE_REVIEW WHERE ID = ?',
+				'UPDATE RATE_REVIEW SET STATE=\'DELETED\' WHERE ID = ?',
 				[id],
 				function (err, result, fields) {
 					if (err) {
