@@ -6,6 +6,7 @@ function RateReview() {
 	this.review        = null;
 	this.referenceType = null;
 	this.referenceId   = null;
+	this.userId        = null;
 	this.user          = new User();
 	this.likesCount    = null;
 	this.commentsCount = null;

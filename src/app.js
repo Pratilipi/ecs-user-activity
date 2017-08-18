@@ -77,7 +77,7 @@ function initializeApp(mysql, config) {
 	app.use("/library", new libraryController(libraryModelInstance).router);
 	app.use("/follows", new followController(followModelInstance).router);
 	app.use("/:referenceType/:referenceId/rate-reviews", new rateReviewController(rateReviewModelInstance, countLookupModelInstance, userUtilInstance).router);
-	app.use("/:referenceType/:referenceId/comments", new commentController(commentModelInstance).router);
+	app.use("/:referenceType/:referenceId/comments", new commentController(commentModelInstance, countLookupModelInstance, userUtilInstance).router);
 	app.use("/:referenceType/:referenceId/votes", new voteController(voteModelInstance).router);
 	
 	
