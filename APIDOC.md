@@ -549,43 +549,6 @@ This API is to get votes by reference.
     "message": "Reference not found"
   }
   ~~~    
-  
-**Update Vote**  
-----
-This API is to update a vote.
-* **URL**  
-  /user-activity/comment/9012345678/votes/1234567890
-* **Method:**  
-  PATCH
-* **Headers:**  
-  User-Id
-* **Request Body**
-  ~~~
-  {
-    "type": "NONE"
-  }
-  ~~~  
-* **Response**  
-  * **Code:** 200 
-  ~~~
-  {
-    "message": "Successfully updated vote"
-  }
-  ~~~
-  -or-  
-  * **Code:** 400 
-  ~~~
-  {
-    "message": "Invalid parameters"
-  }
-  ~~~
-  -or-  
-  * **Code:** 404 
-  ~~~
-  {
-    "message": "Vote not found"
-  }
-  ~~~   
 
 **Post Follow**
 ----
