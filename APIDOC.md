@@ -514,7 +514,7 @@ This API is to get votes by reference.
       {
         "id": 7890123456,
         "type": "LIKE",
-	    "referenceType": "COMMENT",
+	"referenceType": "COMMENT",
         "referenceId": 9012345678,
         "user": {
            "id": 8901234567,
@@ -524,8 +524,7 @@ This API is to get votes by reference.
            "profileImageUrl": "/"
         },
         "hasAccessToUpdate": true,
-        "state": "ACTIVE",
-	    "relativeTime": "23 mins ago",
+	"relativeTime": "23 mins ago",
         "dateCreated": "2017-07-29 12:00:00+0530",
         "dateUpdated": "2017-07-29 12:00:00+0530"
       },
