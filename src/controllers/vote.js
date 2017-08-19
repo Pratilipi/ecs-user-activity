@@ -97,7 +97,7 @@ router.post('/', wrap(function * (req, res) {
 		countLookUpModel.update(countLookup,'PLUS');
 	}
 	
-	res.status(201).send(JSON.stringify({"message": "Successfully added the vote"}));
+	res.status(201).send(JSON.stringify({"message": "success"}));
 	
 }));	
 

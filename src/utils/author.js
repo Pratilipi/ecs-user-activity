@@ -13,14 +13,14 @@ var httpsAgent = new https.Agent({
 });
 
 
-function User () {
+function Author () {
 	
 }
 
-// Get user by userId
-User.prototype.getUserById = function (id) {
+// Get author by authorId
+Author.prototype.getAuthorById = function (id) {
 	return new Promise(function (resolve, reject) {
-		var url = `${externalEndpoints.AUTHOR_ENDPOINT}?userId=`+id;
+		var url = `${externalEndpoints.AUTHOR_ENDPOINT}/`+id;
         var options = {
           uri: url,
           agent : agent,
@@ -38,4 +38,4 @@ User.prototype.getUserById = function (id) {
 	});
 }
 
-module.exports = User;
+module.exports = Author;
