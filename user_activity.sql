@@ -21,7 +21,7 @@ USE `user_activity` ;
 -- Table `user_activity`.`rate_review`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `user_activity`.`rate_review` (
-  `id` BIGINT(20) NOT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `review` LONGTEXT NOT NULL,
   `rating` ENUM('1', '2', '3', '4', '5') NOT NULL,
   `reference_type` ENUM('PRATILIPI', 'AUTHOR') NOT NULL,
@@ -40,7 +40,7 @@ ENGINE = InnoDB;
 -- Table `user_activity`.`vote`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `user_activity`.`vote` (
-  `id` BIGINT(20) NOT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `type` ENUM('LIKE', 'NONE') NOT NULL,
   `reference_type` ENUM('RATE_REVIEW', 'COMMENT') NOT NULL,
   `reference_id` BIGINT(20) NOT NULL,
@@ -57,7 +57,7 @@ ENGINE = InnoDB;
 -- Table `user_activity`.`comment`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `user_activity`.`comment` (
-  `id` BIGINT(20) NOT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `comment` LONGTEXT NOT NULL,
   `reference_type` ENUM('REVIEW') NOT NULL,
   `reference_id` BIGINT(20) NOT NULL,
@@ -74,7 +74,7 @@ ENGINE = InnoDB;
 -- Table `user_activity`.`follow`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `user_activity`.`follow` (
-  `id` BIGINT(20) NOT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `reference_type` ENUM('AUTHOR') NOT NULL,
   `reference_id` BIGINT(20) NOT NULL,
   `user_id` BIGINT(20) NOT NULL,
@@ -91,7 +91,7 @@ ENGINE = InnoDB;
 -- Table `user_activity`.`complain`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `user_activity`.`complain` (
-  `id` BIGINT(20) NOT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `type` ENUM('INAPPROPRIATE', 'VIOLATION') NOT NULL,
   `reference_type` ENUM('RATE_REVIEW', 'COMMENT') NOT NULL,
   `reference_id` BIGINT(20) NOT NULL,
@@ -109,12 +109,14 @@ ENGINE = InnoDB;
 -- Table `user_activity`.`count_lookup`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `user_activity`.`count_lookup` (
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `reference_type` ENUM('PRATILIPI', 'AUTHOR', 'RATE_REVIEW', 'COMMENT') NOT NULL,
   `reference_id` BIGINT(20) UNSIGNED NOT NULL,
   `count_type` ENUM('RATE', 'REVIEW', 'COMMENT', 'LIKE', 'FOLLOW') NOT NULL,
   `count` INT UNSIGNED ZEROFILL NOT NULL,
   `date_updated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  UNIQUE KEY `reference_id_count_type` (`reference_id`,`count_type`))
+  UNIQUE KEY `reference_id_count_type` (`reference_id`,`count_type`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
 ENGINE = InnoDB;
 
 
