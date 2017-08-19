@@ -40,65 +40,37 @@ router.post('/', wrap(function * (req, res) {
 		return;
 	});
 	
-	// Add new vote if there is no previous vote.
-	// Update existing vote, if there is previous vote.
-	if (previousVote == null) {
-		
-		// If new vote request for type 'NONE', return 400 error. 
-		if (type == "NONE") {
+	// Throw error, if there is no previous vote and requested with type 'NONE'
+	if (previousVote == null && type == "NONE") {
 			res.status(400).send(JSON.stringify({'message':'Invalid request'}));
 			return;
-		}
-		
-		// Construct entity
-		var vote = voteEntity.toModel(type, referenceType, referenceId, userId);
-		
-		// Add to database
-		var id  = yield voteModel.add(vote)
-		.then((data) => {
-			console.log("Inserted vote successfully");
-			return data.insertId;
-		}).catch((error) => {
-			console.log("The error is "+error);
-			return null;
-		});
-		
-		// If failed to save, return error in response
-		if (!id) {
-			res.status(500).send(JSON.stringify({'message':'failed to add vote'}));
-			return;
-		}
-	} else {
-		
-		// Construct map with modified fields 
-		var map = {};
-		if (type != null) {
-			map['type'] = type; 
-		}
-	
-		// Update the database
-		var isUpdated = yield voteModel.update(map,previousVote.id)
-		.then((data) => {
-			
-			// Decrement the count for the previous vote type
-			var countLookup = countLookupEntity.toModel(referenceType,referenceId,previousVote.type);
-			countLookUpModel.update(countLookup,'MINUS');
-
-			return data;
-			
-		}).catch((error) => {
-			return false;
-		});
 	}
 	
-	// If type change is not to 'NONE' then increment vote count
+	// Construct entity
+	var vote = voteEntity.toModel(type, referenceType, referenceId, userId);
+	
+	// Add to database
+	var affectedRows  = yield voteModel.add(vote)
+	.then((data) => {
+		console.log("Inserted vote successfully");
+		return data.affectedRows;
+	}).catch((error) => {
+		console.log("The error is "+error);
+		return null;
+	});
+	
+	if (previousVote != null) {
+	// Decrement the count for the previous vote type
+		var countLookup = countLookupEntity.toModel(referenceType,referenceId,previousVote.type);
+		countLookUpModel.update(countLookup,'MINUS');
+	}
+	
 	if (type != "NONE") {
 		var countLookup = countLookupEntity.toModel(referenceType,referenceId,type);
 		countLookUpModel.update(countLookup,'PLUS');
 	}
 	
 	res.status(201).send(JSON.stringify({"message": "success"}));
-	
 }));	
 
 

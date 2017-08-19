@@ -9,8 +9,8 @@ Vote.prototype.add = function (vote) {
 	var that = this;
     return new Promise(function (resolve, reject) {
     	that.db.execute(
-    			'INSERT INTO VOTE (TYPE,REFERENCE_TYPE,REFERENCE_ID,USER_ID) VALUES (?,?,?,?)',
-    			[vote.type,vote.referenceType,vote.referenceId,vote.userId],
+    			'INSERT INTO VOTE (TYPE,REFERENCE_TYPE,REFERENCE_ID,USER_ID) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE TYPE = ?',
+    			[vote.type,vote.referenceType,vote.referenceId,vote.userId,vote.type],
     			function(err, result) {
     				if (err) {
     	                return reject(err);
