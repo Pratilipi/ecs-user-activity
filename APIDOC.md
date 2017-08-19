@@ -558,7 +558,13 @@ This API is to follow an author.
 * **Method:**  
   POST
 * **Headers:**  
-  User-Id
+  User-Id  
+* **Request Body**
+  ~~~
+  {
+    "state": "FOLLOWING"
+  }
+  ~~~
 * **Response**  
   * **Code:** 200 
   ~~~
@@ -706,43 +712,6 @@ This API is to check if user is following
     "message": "Invalid parameters"
   }
   ~~~    
-
-**Update Follow**  
-----
-This API is to update a follow.
-* **URL**  
-  /user-activity/follows/1234567890
-* **Method:**  
-  PATCH
-* **Headers:**  
-  User-Id
-* **Request Body**
-  ~~~
-  {
-    "state": "UNFOLLOWED"
-  }
-  ~~~  
-* **Response**  
-  * **Code:** 200 
-  ~~~
-  {
-    "message": "Successfully updated follow"
-  }
-  ~~~
-  -or-  
-  * **Code:** 400 
-  ~~~
-  {
-    "message": "Invalid parameters"
-  }
-  ~~~
-  -or-  
-  * **Code:** 404 
-  ~~~
-  {
-    "message": "Follow not found"
-  }
-  ~~~   
 
 **Is Added to library**
 ----

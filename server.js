@@ -8,13 +8,13 @@ var config = require( './src/config/main' )[ process.env.STAGE || 'local'];
 
 
 // Initialize MySQL
-const mysqlConnection = mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
-	database: 'user_activity',
-});
+//const mysqlConnection = mysql.createConnection({
+//	host: 'localhost',
+//	user: 'root',
+//	database: 'user_activity',
+//});
 
-//var mysqlConnection;
+var mysqlConnection;
 
 // Initialize app
 var appInstance = app(mysqlConnection, config);
