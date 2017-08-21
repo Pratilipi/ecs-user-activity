@@ -2,14 +2,14 @@
 var express      = require('express');
 var wrap = require('co-express');
 var logger = require('morgan');
-var testModel	 = require('./models/test');
+var sampleModel	 = require('./models/sample');
 var libraryModel = require('./models/library');
 var followModel  = require('./models/follow');
 var rateReviewModel = require('./models/rateReview');
 var commentModel = require('./models/comment');
 var voteModel = require('./models/vote');
 var countLookupModel = require('./models/countLookup');
-var testController    = require('./controllers/test');
+var sampleController    = require('./controllers/sample');
 var libraryController = require('./controllers/library');
 var followController  = require('./controllers/follow');
 var rateReviewController = require('./controllers/rateReview');
@@ -41,7 +41,7 @@ function initializeApp(mysql, config) {
 	
 	// Initialize models
 	console.log("Initializing models...");
-	var testModelInstance        = new testModel(mysql);
+	var sampleModelInstance      = new sampleModel(mysql);
 	var libraryModelInstance     = new libraryModel( { projectId: process.env.GCP_PROJ_ID || config.GCP_PROJ_ID} );
 	var rateReviewModelInstance  = new rateReviewModel(mysql);
 	var commentModelInstance     = new commentModel(mysql);
@@ -74,7 +74,7 @@ function initializeApp(mysql, config) {
 	
 	// Initialize controllers
 	console.log("Initializing routes...");
-	app.use("/test",new testController(testModelInstance).testRouter);
+	app.use("/sample",new sampleController(sampleModelInstance).sampleRouter);
 	app.use("/library", new libraryController(libraryModelInstance).router);
 	app.use("/:referenceType/:referenceId/rate-reviews", new rateReviewController(rateReviewModelInstance, countLookupModelInstance, userUtilInstance).router);
 	app.use("/:referenceType/:referenceId/comments", new commentController(commentModelInstance, countLookupModelInstance, userUtilInstance).router);

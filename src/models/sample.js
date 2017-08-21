@@ -1,10 +1,10 @@
-// Initialize test model
-function Test(mysql) {
+// Initialize sample model
+function Sample(mysql) {
     this.db = mysql;
 }
 
-// Function to test querying
-Test.prototype.getAll = function () {
+// Function to test select querying
+Sample.prototype.getAll = function () {
     var that = this;
     return new Promise(function (resolve, reject) {
     	that.db.query('SELECT * from test_table', function(err, rows, fields) {
@@ -17,4 +17,4 @@ Test.prototype.getAll = function () {
 };
 
 
-module.exports = Test;
+module.exports = Sample;

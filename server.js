@@ -1,20 +1,14 @@
 // Imports
 var express = require('express');
-var mysql   = require('mysql2');
 var app     = require('./src/app');
+var mysql   = require('./src/resources/mysql');
 
 // Load Configurations
 var config = require( './src/config/main' )[ process.env.STAGE || 'local'];
 
-
 // Initialize MySQL
-//const mysqlConnection = mysql.createConnection({
-//	host: 'localhost',
-//	user: 'root',
-//	database: 'user_activity',
-//});
+const mysqlConnection = mysql.getConnection(process.env.STAGE || 'local', config);
 
-var mysqlConnection;
 
 // Initialize app
 var appInstance = app(mysqlConnection, config);
