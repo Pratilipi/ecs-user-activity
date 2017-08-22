@@ -25,13 +25,13 @@ CREATE TABLE IF NOT EXISTS `user_activity`.`rate_review` (
   `review` LONGTEXT NOT NULL,
   `rating` ENUM('1', '2', '3', '4', '5') NOT NULL,
   `reference_type` ENUM('PRATILIPI', 'AUTHOR') NOT NULL,
-  `reference_id` BIGINT(20) NOT NULL,
+  `reference_id` VARCHAR(40) NOT NULL,
   `user_id` BIGINT(20) NOT NULL,
-  `state` ENUM('NONE', 'DRAFTED', 'SUBMITTED', 'PUBLISHED', 'BLOCKED', 'DELETED') NOT NULL,
+  `state` ENUM('PUBLISHED', 'BLOCKED', 'DELETED') NOT NULL,
   `date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_updated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `reference_id_user_id` (`reference_id`,`user_id`),
+  UNIQUE KEY `reference_type_reference_id_user_id` (`reference_type`,`reference_id`,`user_id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
 ENGINE = InnoDB;
 
@@ -43,12 +43,12 @@ CREATE TABLE IF NOT EXISTS `user_activity`.`vote` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `type` ENUM('LIKE', 'NONE') NOT NULL,
   `reference_type` ENUM('RATE_REVIEW', 'COMMENT') NOT NULL,
-  `reference_id` BIGINT(20) NOT NULL,
+  `reference_id` VARCHAR(40) NOT NULL,
   `user_id` BIGINT(20) NOT NULL,
   `date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_updated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `reference_id_user_id` (`reference_id`,`user_id`),
+  UNIQUE KEY `reference_type_reference_id_user_id` (`reference_type`,`reference_id`,`user_id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
 ENGINE = InnoDB;
 
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `user_activity`.`comment` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `comment` LONGTEXT NOT NULL,
   `reference_type` ENUM('REVIEW') NOT NULL,
-  `reference_id` BIGINT(20) NOT NULL,
+  `reference_id` VARCHAR(40) NOT NULL,
   `user_id` BIGINT(20) NOT NULL,
   `state` ENUM('ACTIVE', 'BLOCKED', 'DELETED') NOT NULL,
   `date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -76,13 +76,13 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `user_activity`.`follow` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `reference_type` ENUM('AUTHOR') NOT NULL,
-  `reference_id` BIGINT(20) NOT NULL,
+  `reference_id` VARCHAR(40) NOT NULL,
   `user_id` BIGINT(20) NOT NULL,
-  `state` ENUM('FOLLOWING', 'UNFOLLOWED') NOT NULL,
+  `state` ENUM('FOLLOWING', 'UNFOLLOWED', 'IGNORED') NOT NULL,
   `date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_updated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `reference_id_user_id` (`reference_id`,`user_id`),
+  UNIQUE KEY `reference_type_reference_id_user_id` (`reference_type`,`reference_id`,`user_id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
 ENGINE = InnoDB;
 
@@ -94,13 +94,13 @@ CREATE TABLE IF NOT EXISTS `user_activity`.`complain` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `type` ENUM('INAPPROPRIATE', 'VIOLATION') NOT NULL,
   `reference_type` ENUM('RATE_REVIEW', 'COMMENT') NOT NULL,
-  `reference_id` BIGINT(20) NOT NULL,
+  `reference_id` VARCHAR(40) NOT NULL,
   `user_id` BIGINT(20) NOT NULL,
   `state` ENUM('OPEN', 'DELETED') NOT NULL,
   `date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_updated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `reference_id_user_id` (`reference_id`,`user_id`),
+  UNIQUE KEY `reference_type_reference_id_user_id` (`reference_type`,`reference_id`,`user_id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
 ENGINE = InnoDB;
 
@@ -111,11 +111,11 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `user_activity`.`count_lookup` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `reference_type` ENUM('PRATILIPI', 'AUTHOR', 'RATE_REVIEW', 'COMMENT') NOT NULL,
-  `reference_id` BIGINT(20) UNSIGNED NOT NULL,
+  `reference_id` VARCHAR(40) NOT NULL,
   `count_type` ENUM('RATE', 'REVIEW', 'COMMENT', 'LIKE', 'FOLLOW') NOT NULL,
   `count` INT UNSIGNED ZEROFILL NOT NULL,
   `date_updated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  UNIQUE KEY `reference_id_count_type` (`reference_id`,`count_type`),
+  UNIQUE KEY `reference_type_reference_id_count_type` (`reference_type`,`reference_id`,`count_type`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
 ENGINE = InnoDB;
 
