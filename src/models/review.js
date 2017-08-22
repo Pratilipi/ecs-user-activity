@@ -1,18 +1,18 @@
-// Initialize rate-review model
-function RateReview(pool) {
+// Initialize review model
+function Review(pool) {
     this.pool = pool;
 }
 
-// Function to add rate-review
-RateReview.prototype.add = function (rateReview) {
+// Function to add review
+Review.prototype.add = function (review) {
 	
-	console.log("Model: Adding rate-review to database");
+	console.log("Model: Adding review to database");
 	var that = this;
     return new Promise(function (resolve, reject) {
     	that.pool.getConnection(function(err, connection) {
 	    	connection.execute(
-    			'INSERT INTO RATE_REVIEW (REVIEW,RATING,REFERENCE_TYPE,REFERENCE_ID,USER_ID,STATE) VALUES (?,?,?,?,?,?)',
-    			[rateReview.review,rateReview.rating,rateReview.referenceType,rateReview.referenceId,rateReview.userId,rateReview.state],
+    			'INSERT INTO REVIEW (REVIEW,RATING,REFERENCE_TYPE,REFERENCE_ID,USER_ID,STATE) VALUES (?,?,?,?,?,?)',
+    			[review.review,review.rating,review.referenceType,review.referenceId,review.userId,review.state],
     			function(err, result) {
     				connection.release();
     				if (err) {
@@ -25,15 +25,15 @@ RateReview.prototype.add = function (rateReview) {
     });	
 };
 
-// Function to return list of rate-reviews by reference
-RateReview.prototype.getByReference = function (referenceId) {
+// Function to return list of reviews by reference
+Review.prototype.getByReference = function (referenceId) {
 	
-	console.log("Model: Getting list of rate-reviews from database by reference id");
+	console.log("Model: Getting list of reviews from database by reference id");
 	var that = this;
 	return new Promise(function (resolve, reject) {
 		that.pool.getConnection(function(err, connection) {
 			connection.query(
-				'SELECT * FROM RATE_REVIEW WHERE REFERENCE_ID = ? LIMIT 0,5',
+				'SELECT * FROM REVIEW WHERE REFERENCE_ID = ? LIMIT 0,5',
 				[referenceId],	
 				function (err, result, fields) {
 					connection.release();
@@ -47,15 +47,15 @@ RateReview.prototype.getByReference = function (referenceId) {
 	});
 };
 
-// Function to get rate-review by id
-RateReview.prototype.get = function (id) {
+// Function to get review by id
+Review.prototype.get = function (id) {
 	
-	console.log("Model: Getting rate-review from database by id");
+	console.log("Model: Getting review from database by id");
 	var that = this;
 	return new Promise(function (resolve, reject) {
 		that.pool.getConnection(function(err, connection) {
 			connection.query(
-				'SELECT * FROM RATE_REVIEW WHERE ID = ?',
+				'SELECT * FROM REVIEW WHERE ID = ?',
 				[id],
 				function (err, result, fields) {
 					connection.release();
@@ -70,15 +70,15 @@ RateReview.prototype.get = function (id) {
 }
 
 
-// Function to update rate-review
-RateReview.prototype.update = function (map,id) {
+// Function to update review
+Review.prototype.update = function (map,id) {
 	
-	console.log("Model: Update rate-review in database");
+	console.log("Model: Update review in database");
 	var that = this;
 	return new Promise(function (resolve, reject) {
 		that.pool.getConnection(function(err, connection) {
 			connection.query(
-				'UPDATE RATE_REVIEW SET ? WHERE ID = ?',
+				'UPDATE REVIEW SET ? WHERE ID = ?',
 				[map, id],
 				function (err, result, fields) {
 					connection.release();
@@ -97,13 +97,13 @@ RateReview.prototype.update = function (map,id) {
 }
 
 
-// Function to delete rate-review
-RateReview.prototype.delete = function (id) {
+// Function to delete review
+Review.prototype.delete = function (id) {
 	var that = this;
 	return new Promise(function (resolve, reject) {
 		that.pool.getConnection(function(err, connection) {
 			connection.query(
-				'UPDATE RATE_REVIEW SET STATE=\'DELETED\' WHERE ID = ?',
+				'UPDATE REVIEW SET STATE=\'DELETED\' WHERE ID = ?',
 				[id],
 				function (err, result, fields) {
 					connection.release();
@@ -121,4 +121,4 @@ RateReview.prototype.delete = function (id) {
 	});
 }
 
-module.exports = RateReview;
+module.exports = Review;
