@@ -5,9 +5,10 @@ var co      = require('co');
 var MySQL = {};
 
 
-MySQL.getConnection = function (stage,config) {
+MySQL.getPool = function (stage,config) {
 
 	return co(function * () {
+	
 			var username;
 			var password;
 			if (stage == 'local') {
@@ -18,12 +19,13 @@ MySQL.getConnection = function (stage,config) {
 				username = credentials.username;
 				password = credentials.password;
 			}
-			
-			return mysqlConnection = mysql.createConnection({
+
+			return mysqlPool = mysql.createPool({
 				host: config.DB_MYSQL_HOST,
 				user: username,
 				password : password, 
 				database: config.DB_MYSQL_DATABASE,
+				connectionLimit: 10
 			});
 		});
 		

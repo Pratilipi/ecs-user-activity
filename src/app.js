@@ -20,7 +20,7 @@ var authorUtil = require('./utils/author');
 
 var app = null;
 
-function initializeApp(mysql, config) {
+function initializeApp(mysqlPool, config) {
 	
 	console.log("Initializing app...");
 	if (app) {
@@ -41,13 +41,13 @@ function initializeApp(mysql, config) {
 	
 	// Initialize models
 	console.log("Initializing models...");
-	var sampleModelInstance      = new sampleModel(mysql);
+	var sampleModelInstance      = new sampleModel(mysqlPool);
 	var libraryModelInstance     = new libraryModel( { projectId: process.env.GCP_PROJ_ID || config.GCP_PROJ_ID} );
-	var rateReviewModelInstance  = new rateReviewModel(mysql);
-	var commentModelInstance     = new commentModel(mysql);
-	var voteModelInstance        = new voteModel(mysql);
-	var countLookupModelInstance = new countLookupModel(mysql);
-	var followModelInstance      = new followModel(mysql);
+	var rateReviewModelInstance  = new rateReviewModel(mysqlPool);
+	var commentModelInstance     = new commentModel(mysqlPool);
+	var voteModelInstance        = new voteModel(mysqlPool);
+	var countLookupModelInstance = new countLookupModel(mysqlPool);
+	var followModelInstance      = new followModel(mysqlPool);
 	
 	// Get User-Id from header
 	app.use("/", wrap(function * (req, res, next) {
