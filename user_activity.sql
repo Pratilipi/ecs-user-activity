@@ -18,9 +18,9 @@ CREATE SCHEMA IF NOT EXISTS `user_activity` DEFAULT CHARACTER SET utf8 ;
 USE `user_activity` ;
 
 -- -----------------------------------------------------
--- Table `user_activity`.`rate_review`
+-- Table `user_activity`.`review`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `user_activity`.`rate_review` (
+CREATE TABLE IF NOT EXISTS `user_activity`.`review` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `review` LONGTEXT NOT NULL,
   `rating` ENUM('1', '2', '3', '4', '5') NOT NULL,
@@ -42,7 +42,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `user_activity`.`vote` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `type` ENUM('LIKE', 'NONE') NOT NULL,
-  `reference_type` ENUM('RATE_REVIEW', 'COMMENT') NOT NULL,
+  `reference_type` ENUM('REVIEW', 'COMMENT') NOT NULL,
   `reference_id` VARCHAR(40) NOT NULL,
   `user_id` BIGINT(20) NOT NULL,
   `date_created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -93,7 +93,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `user_activity`.`complain` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `type` ENUM('INAPPROPRIATE', 'VIOLATION') NOT NULL,
-  `reference_type` ENUM('RATE_REVIEW', 'COMMENT') NOT NULL,
+  `reference_type` ENUM('REVIEW', 'COMMENT') NOT NULL,
   `reference_id` VARCHAR(40) NOT NULL,
   `user_id` BIGINT(20) NOT NULL,
   `state` ENUM('OPEN', 'DELETED') NOT NULL,
@@ -110,7 +110,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `user_activity`.`count_lookup` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `reference_type` ENUM('PRATILIPI', 'AUTHOR', 'RATE_REVIEW', 'COMMENT') NOT NULL,
+  `reference_type` ENUM('PRATILIPI', 'AUTHOR', 'REVIEW', 'COMMENT') NOT NULL,
   `reference_id` VARCHAR(40) NOT NULL,
   `count_type` ENUM('RATE', 'REVIEW', 'COMMENT', 'LIKE', 'FOLLOW') NOT NULL,
   `count` INT UNSIGNED ZEROFILL NOT NULL,

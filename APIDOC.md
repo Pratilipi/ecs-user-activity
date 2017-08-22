@@ -1,8 +1,8 @@
-**Post a Rate-Review**
+**Post a Review**
 ----
 This API is to post a review along with the rating.  
 * **URL**  
-  /user-activity/pratilipi/7890123456/rate-reviews
+  /user-activity/pratilipis/7890123456/reviews
 * **Method:**  
   POST
 * **Headers:**  
@@ -47,11 +47,11 @@ This API is to post a review along with the rating.
   }
   ~~~    
   
-**Get Rate-Review by id**  
+**Get Review by id**  
 ----
-This API is to get rate-review by id.
+This API is to get review by id.
 * **URL**  
-  /user-activity/pratilipi/7890123456/rate-reviews/0123456789?includes=comments
+  /user-activity/pratilipis/7890123456/reviews/0123456789?includes=comments
 * **Method:**  
   GET
 * **Headers:**  
@@ -119,15 +119,15 @@ This API is to get rate-review by id.
   * **Code:** 404 
   ~~~
   {
-    "message": "Rate-Review not found"
+    "message": "Review not found"
   }
   ~~~
    
-**Get Rate-Review by reference id**
+**Get Review by reference id**
 ----
-This API is to get rate-reviews by reference.
+This API is to get reviews by reference.
 * **URL**  
-  /user-activity/pratilipi/7890123456/rate-reviews?sort=userReview&cursor=u089x3yrn023ox4y2390x482&resultCount=5
+  /user-activity/pratilipis/7890123456/reviews?sort=userReview&cursor=u089x3yrn023ox4y2390x482&resultCount=5
 * **Method:**  
   GET
 * **Headers:**  
@@ -180,11 +180,11 @@ This API is to get rate-reviews by reference.
   }
   ~~~
   
-**Update Rate-Review**  
+**Update Review**  
 ----
-This API is to update a rate-review.
+This API is to update a review.
 * **URL**  
-  /user-activity/pratilipi/7890123456/rate-reviews/1234567890
+  /user-activity/pratilipis/7890123456/reviews/1234567890
 * **Method:**  
   PATCH
 * **Headers:**  
@@ -201,7 +201,7 @@ This API is to update a rate-review.
   * **Code:** 200 
   ~~~
   {
-    "message": "Successfully updated rate-review"
+    "message": "Successfully updated review"
   }
   ~~~
   -or-  
@@ -215,15 +215,15 @@ This API is to update a rate-review.
   * **Code:** 404 
   ~~~
   {
-    "message": "Rate-Review not found"
+    "message": "Review not found"
   }
   ~~~
    
-**Delete Rate-Review**  
+**Delete Review**  
 ----
-This API is to delete a rate-review.
+This API is to delete a review.
 * **URL**  
-  /user-activity/pratilipi/7890123456/rate-reviews/1234567890
+  /user-activity/pratilipis/7890123456/reviews/1234567890
 * **Method:**  
   DELETE
 * **Headers:**  
@@ -232,7 +232,7 @@ This API is to delete a rate-review.
   * **Code:** 200 
   ~~~
   {
-    "message": "Successfully deleted rate-review"
+    "message": "Successfully deleted review"
   }
   ~~~
   -or-  
@@ -246,7 +246,7 @@ This API is to delete a rate-review.
   * **Code:** 404 
   ~~~
   {
-    "message": "Rate-Review not found"
+    "message": "Review not found"
   }
   ~~~
 
@@ -255,7 +255,7 @@ This API is to delete a rate-review.
 ----
 This API is to post a comment.  
 * **URL**  
-  /user-activity/rate-review/8901234567/comments
+  /user-activity/reviews/8901234567/comments
 * **Method:**  
   POST
 * **Headers:**  
@@ -301,7 +301,7 @@ This API is to post a comment.
 ----
 This API is to get comment by id.
 * **URL**  
-  /user-activity/rate-review/8901234567/comments/0123456789
+  /user-activity/reviews/8901234567/comments/0123456789
 * **Method:**  
   GET
 * **Headers:**  
@@ -348,7 +348,7 @@ This API is to get comment by id.
 ----
 This API is to get comments by reference.
 * **URL**  
-  /user-activity/rate-review/8901234567/comments?cursor=384yn289034y70283xyr234&resultCount=5
+  /user-activity/reviews/8901234567/comments?cursor=384yn289034y70283xyr234&resultCount=5
 * **Method:**  
   GET
 * **Headers:**  
@@ -403,7 +403,7 @@ This API is to get comments by reference.
 ----
 This API is to update a comment.
 * **URL**  
-  /user-activity/rate-review/8901234567/comments/1234567890
+  /user-activity/reviews/8901234567/comments/1234567890
 * **Method:**  
   PATCH
 * **Headers:**  
@@ -440,7 +440,7 @@ This API is to update a comment.
 ----
 This API is to delete a comment.
 * **URL**  
-  /user-activity/rate-review/8901234567/comments/1234567890
+  /user-activity/reviews/8901234567/comments/1234567890
 * **Method:**  
   DELETE
 * **Headers:**  
@@ -471,7 +471,7 @@ This API is to delete a comment.
 ----
 This API is to post a vote.  
 * **URL**  
-  /user-activity/comment/9012345678/votes
+  /user-activity/comments/9012345678/votes
 * **Method:**  
   POST
 * **Headers:**  
@@ -501,7 +501,7 @@ This API is to post a vote.
 ----
 This API is to get votes by reference.
 * **URL**  
-  /user-activity/comment/9012345678/votes?type=LIKE&cursor=y803y4x02783n9rxy8r38238rn&resultCount=5
+  /user-activity/comments/9012345678/votes?type=LIKE&cursor=y803y4x02783n9rxy8r38238rn&resultCount=5
 * **Method:**  
   GET
 * **Headers:**  
@@ -554,7 +554,7 @@ This API is to get votes by reference.
 ----
 This API is to follow an author.  
 * **URL**  
-  /user-activity/author/3290834720394/follows
+  /user-activity/authors/3290834720394/follows
 * **Method:**  
   POST
 * **Headers:**  
@@ -584,7 +584,7 @@ This API is to follow an author.
 ----
 This API is to get followers by reference.
 * **URL**  
-  /user-activity/author/3290834720394/follows/followers?cursor=89323y8x9023h0x8mfh2309fh083&resultCount=5
+  /user-activity/authors/3290834720394/follows/followers?cursor=89323y8x9023h0x8mfh2309fh083&resultCount=5
 * **Method:**  
   GET
 * **Headers:**  
@@ -637,7 +637,7 @@ This API is to get followers by reference.
 ----
 This API is to get following list.
 * **URL**  
-  /user-activity/user/34786534876534/follows/following?cursor=380n4y238y794yn238ry&resultCount=5
+  /user-activity/users/34786534876534/follows/following?cursor=380n4y238y794yn238ry&resultCount=5
 * **Method:**  
   GET
 * **Headers:**  

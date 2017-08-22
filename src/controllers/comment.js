@@ -63,7 +63,7 @@ router.post('/', wrap(function * (req, res) {
 		user = userEntity.toDTO({id:userId});
 	} 
 	
-	// return the new rate-review in response
+	// return the new comment in response
 	comment = commentEntity.toDTO(id, commentText, referenceType, referenceId, user, 0, true, 'ACTIVE', relativeDate(date), date, date);
 	res.status(201).send(JSON.stringify(comment));
 	

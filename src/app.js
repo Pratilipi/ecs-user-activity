@@ -5,14 +5,14 @@ var logger = require('morgan');
 var sampleModel	 = require('./models/sample');
 var libraryModel = require('./models/library');
 var followModel  = require('./models/follow');
-var rateReviewModel = require('./models/rateReview');
+var reviewModel = require('./models/review');
 var commentModel = require('./models/comment');
 var voteModel = require('./models/vote');
 var countLookupModel = require('./models/countLookup');
 var sampleController    = require('./controllers/sample');
 var libraryController = require('./controllers/library');
 var followController  = require('./controllers/follow');
-var rateReviewController = require('./controllers/rateReview');
+var reviewController = require('./controllers/review');
 var commentController = require('./controllers/comment');
 var voteController = require('./controllers/vote');
 var userUtil = require('./utils/user');
@@ -43,7 +43,7 @@ function initializeApp(mysqlPool, config) {
 	console.log("Initializing models...");
 	var sampleModelInstance      = new sampleModel(mysqlPool);
 	var libraryModelInstance     = new libraryModel( { projectId: process.env.GCP_PROJ_ID || config.GCP_PROJ_ID} );
-	var rateReviewModelInstance  = new rateReviewModel(mysqlPool);
+	var reviewModelInstance      = new reviewModel(mysqlPool);
 	var commentModelInstance     = new commentModel(mysqlPool);
 	var voteModelInstance        = new voteModel(mysqlPool);
 	var countLookupModelInstance = new countLookupModel(mysqlPool);
@@ -65,8 +65,20 @@ function initializeApp(mysqlPool, config) {
 	
 	
 	// Handle references
-	app.use(["/:referenceType/:referenceId/rate-reviews","/:referenceType/:referenceId/comments","/:referenceType/:referenceId/votes","/:referenceType/:referenceId/follows"], function (req,res,next) {
-		req.customParams.referenceType = req.params.referenceType;
+	app.use(["/:referenceType/:referenceId/reviews","/:referenceType/:referenceId/comments","/:referenceType/:referenceId/votes","/:referenceType/:referenceId/follows"], function (req,res,next) {
+		if (req.params.referenceType == "pratilipis") {
+			req.customParams.referenceType = "PRATILIPI";
+		} else if (req.params.referenceType == "reviews") {
+			req.customParams.referenceType = "REVIEW";
+		} else if (req.params.referenceType == "comments") {
+			req.customParams.referenceType = "COMMENT";
+		} else if (req.params.referenceType == "authors") {
+			req.customParams.referenceType = "AUTHOR";
+		} else if (req.params.referenceType == "users") {
+			req.customParams.referenceType = "USER";
+		} else {
+			req.customParams.referenceType = req.params.referenceType;
+		}
 		req.customParams.referenceId = req.params.referenceId;
 		next();
 	});
@@ -76,7 +88,7 @@ function initializeApp(mysqlPool, config) {
 	console.log("Initializing routes...");
 	app.use("/sample",new sampleController(sampleModelInstance).sampleRouter);
 	app.use("/library", new libraryController(libraryModelInstance).router);
-	app.use("/:referenceType/:referenceId/rate-reviews", new rateReviewController(rateReviewModelInstance, countLookupModelInstance, userUtilInstance).router);
+	app.use("/:referenceType/:referenceId/reviews", new reviewController(reviewModelInstance, countLookupModelInstance, userUtilInstance).router);
 	app.use("/:referenceType/:referenceId/comments", new commentController(commentModelInstance, countLookupModelInstance, userUtilInstance).router);
 	app.use("/:referenceType/:referenceId/votes", new voteController(voteModelInstance, countLookupModelInstance, userUtilInstance).router);
 	app.use(["/:referenceType/:referenceId/follows","/follows"], new followController(followModelInstance, countLookupModelInstance, userUtilInstance, authorUtilInstance).router);

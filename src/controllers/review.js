@@ -2,12 +2,12 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var wrap = require('co-express');
-var rateReviewEntity  = require('./../entities/rateReview');
+var reviewEntity  = require('./../entities/review');
 var countLookupEntity = require('./../entities/countLookup');
 var userEntity        = require('./../entities/user');
 var relativeDate = require('relative-date');
 
-var rateReviewModel = null;
+var reviewModel = null;
 var countLookUpModel = null;
 var userUtil = null;
 
@@ -18,7 +18,7 @@ router.use(bodyParser.urlencoded({
 router.use(bodyParser.json());
 
 router.post('/', wrap(function * (req, res) {
-	console.log("Contorller: Request to add rate-review");
+	console.log("Contorller: Request to add review");
 	
 	// Read Parameters
 	var referenceType = req.customParams.referenceType;
@@ -29,12 +29,12 @@ router.post('/', wrap(function * (req, res) {
 	var date = new Date();
 	
 	// Construct entity
-	var rateReview = rateReviewEntity.toModel(referenceType, referenceId, userId, rating, review, 'PUBLISHED');
+	var reviewEnt = reviewEntity.toModel(referenceType, referenceId, userId, rating, review, 'PUBLISHED');
 	
 	// Add to database
-	var id  = yield rateReviewModel.add(rateReview)
+	var id  = yield reviewModel.add(reviewEnt)
 	.then((data) => {
-		console.log("Inserted rate-review successfully");
+		console.log("Inserted review successfully");
 		return data.insertId;
 	}).catch((error) => {
 		console.log("The error is "+error);
@@ -51,7 +51,7 @@ router.post('/', wrap(function * (req, res) {
 	console.log("inserting into the count lookup "+id);
 	var countLookup = countLookupEntity.toModel(referenceType,referenceId,'RATE');
 	yield countLookUpModel.update(countLookup,'PLUS');
-	if (!review) {
+	if (review) {
 		countLookup = countLookupEntity.toModel(referenceType,referenceId,'REVIEW');
 		yield countLookUpModel.update(countLookup,'PLUS');
 	}
@@ -67,9 +67,12 @@ router.post('/', wrap(function * (req, res) {
 		user = userEntity.toDTO({id:userId});
 	} 
 	
-	// return the new rate-review in response
-	rateReview = rateReviewEntity.toDTO(id, rating, review, referenceType, referenceId, user, 0, 0, true, 'PUBLISHED', relativeDate(date), date, date);
-	res.status(201).send(JSON.stringify(rateReview));
+	console.log(review);
+	
+	// return the new review in response
+	var reviewDTO = reviewEntity.toDTO(id, rating, review, referenceType, referenceId, user, 0, 0, true, 'PUBLISHED', relativeDate(date), date, date);
+	console.log(reviewDTO);
+	res.status(201).send(JSON.stringify(reviewDTO));
 	
 }));
 
@@ -88,14 +91,14 @@ router.post('/', function (req, res) {
 	console.log("Request reached to controller");
 	
 	// Construct entity
-	var rateReview = rateReviewEntity.toModel(referenceType, referenceId, userId, rating, review, 'PUBLISHED');
+	var review = reviewEntity.toModel(referenceType, referenceId, userId, rating, review, 'PUBLISHED');
 	
 	// Add to database
-	console.log("Inserting a new rate-review to database");
-	var rateReviewPromise = rateReviewModel.add(rateReview)
+	console.log("Inserting a new review to database");
+	var reviewPromise = reviewModel.add(review)
 	
-	rateReviewPromise.then((data) => {
-		console.log("Inserted rate-review");
+	reviewPromise.then((data) => {
+		console.log("Inserted review");
 		id = data.insertId;
 		
 		console.log("inserting into the count lookup");
@@ -116,7 +119,7 @@ router.post('/', function (req, res) {
 	// Construct response
 	//var model = "";
 	//var user = "";
-	//var response = rateReviewEntity.toResponse(model, user);
+	//var response = reviewEntity.toResponse(model, user);
 	
 	// return response
 	//res.status(201).send(JSON.stringify(response));
@@ -126,18 +129,18 @@ router.post('/', function (req, res) {
 */
 
 router.get('/', wrap(function * (req, res) {
-	console.log("Contorller: Request to get rate-review by reference-id");
+	console.log("Contorller: Request to get review by reference-id");
 	
 	// Read Parameters
 	var referenceType = req.customParams.referenceType;
 	var referenceId   = req.customParams.referenceId;
 	var userId        = req.customParams.userId;
-	var rateReview = null;
+	var review = null;
 	var hasAccessToUpdate = false;
 	
-	// Get rate-reviews by reference id.
+	// Get reviews by reference id.
 	var arr = [];
-	var rateReviews = yield rateReviewModel.getByReference(referenceId)
+	var reviews = yield reviewModel.getByReference(referenceId)
 	.then((data) => {
 		return data;
 		
@@ -146,42 +149,42 @@ router.get('/', wrap(function * (req, res) {
 		return [];
 	});
 	
-	// Iterate through each rate-review to get additional information
-	for (var i in rateReviews) {
-		rateReview = rateReviews[i];
+	// Iterate through each review to get additional information
+	for (var i in reviews) {
+		review = reviews[i];
 		hasAccessToUpdate = false;
 		
 		// Set update access
-		if (userId == rateReview.user_id) {
+		if (userId == review.user_id) {
 			hasAccessToUpdate = true;
 		}
 		
 		// Get user(who had reviewed) information 
-		var user = yield userUtil.getUserById(rateReview.user_id)
+		var user = yield userUtil.getUserById(review.user_id)
 		.then((data) => {
 			return userEntity.toDTO(data);
 		})
 		.catch((err) => {});
 		
 		if (user == undefined) {
-			user = userEntity.toDTO({id:rateReview.user_id});
+			user = userEntity.toDTO({id:review.user_id});
 		} 
 		
 		// Get the like and comment counts
 		var likeCount = 0 ; 
 		var commentCount = 0;
-		yield countLookUpModel.get(rateReview.reference_id,'LIKE')
+		yield countLookUpModel.get(review.reference_id,'LIKE')
 		.then((data) => {
 			if (data.length > 0)
 				likeCount = data[0].COUNT;
 		}).catch((err) => {});
-		yield countLookUpModel.get(rateReview.reference_id,'COMMENT')
+		yield countLookUpModel.get(review.reference_id,'COMMENT')
 		.then((data) => {
 			if (data.length > 0)
 				commentCount = data[0].COUNT;
 		}).catch((err) => {});
 		
-		arr.push(rateReviewEntity.toDTO(rateReview.id, rateReview.rating, rateReview.review, rateReview.reference_type, rateReview.reference_id, user, likeCount, commentCount, hasAccessToUpdate, rateReview.state, relativeDate(rateReview.date_created), rateReview.date_created, rateReview.date_updated));
+		arr.push(reviewEntity.toDTO(review.id, review.rating, review.review, review.reference_type, review.reference_id, user, likeCount, commentCount, hasAccessToUpdate, review.state, relativeDate(review.date_created), review.date_created, review.date_updated));
 	}
 	
 	//TODO: Handle pagination attributes.
@@ -191,52 +194,52 @@ router.get('/', wrap(function * (req, res) {
 }));
 
 router.get('/:id', wrap(function * (req, res) {
-	console.log("Controller: Request to get rate-review by id");
+	console.log("Controller: Request to get review by id");
 	
 	// Read Parameters
 	var userId        = req.customParams.userId;
-	var rateReviewId  = req.params.id;
+	var reviewId  = req.params.id;
 	
 	var hasAccessToUpdate = false;
 	
-	// Get rate-review by id
-	var rateReview = yield rateReviewModel.get(rateReviewId)
+	// Get review by id
+	var review = yield reviewModel.get(reviewId)
 	.then((data) => {
 		return data[0];
 	}).catch((error) => {});
 	
 	// Return 404 in response, if not found.
-	if (rateReview == undefined || rateReview == null) {
-		res.status(404).send(JSON.stringify({'message':'Rate-Review not found for given id'}));
+	if (review == undefined || review == null) {
+		res.status(404).send(JSON.stringify({'message':'Review not found for given id'}));
 		return;
 	}
 	
 	// Set update access
-	if (userId == rateReview.user_id) {
+	if (userId == review.user_id) {
 		hasAccessToUpdate = true;
 	}
 	
 	// Get user(who had reviewed) information
-	var user = yield userUtil.getUserById(rateReview.user_id)
+	var user = yield userUtil.getUserById(review.user_id)
 	.then((data) => {
 		return userEntity.toDTO(data);
 	})
 	.catch((err) => {});
 	
 	if (user == undefined) {
-		user = userEntity.toDTO({id:rateReview.user_id});
+		user = userEntity.toDTO({id:review.user_id});
 	} 
 	
 	// Get the likes and comments count
 	var likeCount = 0 ; 
-	yield countLookUpModel.get(rateReview.reference_id,'LIKE')
+	yield countLookUpModel.get(review.reference_id,'LIKE')
 	.then((data) => {
 		if (data.length > 0)
 			likeCount = data[0].COUNT;
 	}).catch((err) => {});
 
 	var commentCount = 0;
-	yield countLookUpModel.get(rateReview.reference_id,'COMMENT')
+	yield countLookUpModel.get(review.reference_id,'COMMENT')
 	.then((data) => {
 		if (data.length > 0)
 			commentCount = data[0].COUNT;
@@ -244,16 +247,16 @@ router.get('/:id', wrap(function * (req, res) {
 	
 	
 	// Return response
-	rateReview = rateReviewEntity.toDTO(rateReview.id, rateReview.rating, rateReview.review, rateReview.reference_type, rateReview.reference_id, user, likeCount, commentCount, hasAccessToUpdate, rateReview.state, relativeDate(rateReview.date_created), rateReview.date_created, rateReview.date_updated);
-	res.status(200).send(JSON.stringify(rateReview));
+	review = reviewEntity.toDTO(review.id, review.rating, review.review, review.reference_type, review.reference_id, user, likeCount, commentCount, hasAccessToUpdate, review.state, relativeDate(review.date_created), review.date_created, review.date_updated);
+	res.status(200).send(JSON.stringify(review));
 	
 }));
 
 router.patch("/:id", wrap(function * (req, res) {
-	console.log("Controller: Request to update rate-review by id");
+	console.log("Controller: Request to update review by id");
 
 	// Read Parameters
-	var rateReviewId  = req.params.id;
+	var reviewId  = req.params.id;
 	var rating        = req.body.rating;
 	var review        = req.body.review;
 	var state         = req.body.state;
@@ -275,7 +278,7 @@ router.patch("/:id", wrap(function * (req, res) {
 	}
 	
 	// Update the database
-	var isUpdated = yield rateReviewModel.update(map,rateReviewId)
+	var isUpdated = yield reviewModel.update(map,reviewId)
 	.then((data) => {
 		// Update rate and review count, If there is state change update of type 'Delete' or 'Block'
 		if (state == 'BLOCKED' || state == 'DELETED') {
@@ -292,25 +295,25 @@ router.patch("/:id", wrap(function * (req, res) {
 	
 	// Send 404 in response, if update is failed.
 	if (!isUpdated) {
-		res.status(404).send(JSON.stringify({'message':'Rate-Review not found to update'}));
+		res.status(404).send(JSON.stringify({'message':'Review not found to update'}));
 	}
 	
 	// Send response
-	res.status(200).send(JSON.stringify({'message':'Successfully updated Rate-Review'}));
+	res.status(200).send(JSON.stringify({'message':'Successfully updated Review'}));
 	
 }));
 
 router.delete("/:id", wrap(function * (req, res) {
-	console.log("Controller: Request to delete rate-review by id");
+	console.log("Controller: Request to delete review by id");
 
 	// Read Parameters
 	var userId        = req.customParams.userId;
-	var rateReviewId  = req.params.id;
+	var reviewId  = req.params.id;
 	var referenceType = req.customParams.referenceType;
 	var referenceId   = req.customParams.referenceId;
 	
 	// Delete(soft) from database.
-	var isDeleted = yield rateReviewModel.delete(rateReviewId)
+	var isDeleted = yield reviewModel.delete(reviewId)
 	.then((data) => {
 		return data;
 	}).catch((error) => {
@@ -319,7 +322,7 @@ router.delete("/:id", wrap(function * (req, res) {
 	
 	// Send 404 in response, if failed to delete.
 	if (!isDeleted) {
-		res.status(404).send(JSON.stringify({'message':'Rate-Review not found to delete'}));
+		res.status(404).send(JSON.stringify({'message':'Review not found to delete'}));
 	}
 	
 	// Update rate and review counts in database
@@ -329,17 +332,17 @@ router.delete("/:id", wrap(function * (req, res) {
 	countLookUpModel.update(countLookup,'MINUS');
 	
 	// Send response
-	res.status(200).send(JSON.stringify({'message':'Successfully deleted Rate-Review'}));
+	res.status(200).send(JSON.stringify({'message':'Successfully deleted Review'}));
 	
 }));
 
 
-function RateReview (rateReviewModelInst, countLookUpModelInst, userUtilInst) {
-	rateReviewModel = rateReviewModelInst;
+function Review (reviewModelInst, countLookUpModelInst, userUtilInst) {
+	reviewModel = reviewModelInst;
 	countLookUpModel = countLookUpModelInst;
 	userUtil = userUtilInst;
 }
 
-RateReview.prototype.router = router;
+Review.prototype.router = router;
 
-module.exports = RateReview;
+module.exports = Review;
