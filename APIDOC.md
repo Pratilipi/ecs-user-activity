@@ -471,7 +471,7 @@ This API is to delete a comment.
 ----
 This API is to post a vote.  
 * **URL**  
-  /user-activity/comment/9012345678/votes
+  /user-activity/comments/9012345678/votes
 * **Method:**  
   POST
 * **Headers:**  
@@ -501,7 +501,7 @@ This API is to post a vote.
 ----
 This API is to get votes by reference.
 * **URL**  
-  /user-activity/comment/9012345678/votes?type=LIKE&cursor=y803y4x02783n9rxy8r38238rn&resultCount=5
+  /user-activity/comments/9012345678/votes?type=LIKE&cursor=y803y4x02783n9rxy8r38238rn&resultCount=5
 * **Method:**  
   GET
 * **Headers:**  
@@ -554,7 +554,7 @@ This API is to get votes by reference.
 ----
 This API is to follow an author.  
 * **URL**  
-  /user-activity/author/3290834720394/follows
+  /user-activity/authors/3290834720394/follows
 * **Method:**  
   POST
 * **Headers:**  
@@ -584,7 +584,7 @@ This API is to follow an author.
 ----
 This API is to get followers by reference.
 * **URL**  
-  /user-activity/author/3290834720394/follows/followers?cursor=89323y8x9023h0x8mfh2309fh083&resultCount=5
+  /user-activity/authors/3290834720394/follows/followers?cursor=89323y8x9023h0x8mfh2309fh083&resultCount=5
 * **Method:**  
   GET
 * **Headers:**  
@@ -637,7 +637,7 @@ This API is to get followers by reference.
 ----
 This API is to get following list.
 * **URL**  
-  /user-activity/user/34786534876534/follows/following?cursor=380n4y238y794yn238ry&resultCount=5
+  /user-activity/users/34786534876534/follows/following?cursor=380n4y238y794yn238ry&resultCount=5
 * **Method:**  
   GET
 * **Headers:**  
