@@ -1,11 +1,39 @@
-FROM $DOCKER_REPO/node:8.0.0
+FROM $DOCKER_REPO/ubuntu-nginx:1.0
 
-COPY package.json .
-RUN npm install
+#set timezone
+RUN rm /etc/localtime
+RUN ln -s /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
+RUN export TZ=Asia/Kolkata
 
+#user_activity codebase
+RUN mkdir -p /user_activity/src
+RUN mkdir -p /user_activity/lib
+RUN mkdir -p /user_activity/conf
+
+#setup user_activity env
+COPY requirements.txt /user_activity/
+COPY main.py /user_activity/
+COPY wsgi.py /user_activity/
+COPY src/* /user_activity/src/
+COPY lib/* /user_activity/lib/
+COPY conf/* /user_activity/conf/
+
+#setup nginx for user_activity
+RUN rm /etc/nginx/sites-available/default
+COPY container_conf/user_activity.nginx /etc/nginx/sites-available/user_activity
+RUN ln -s /etc/nginx/sites-available/user_activity /etc/nginx/sites-enabled/
+
+#setup user_activity init script
+COPY container_conf/user_activity_init.sh /user_activity/
+
+#set work dir
+WORKDIR /user_activity
+
+#install dependencies for user_activity
+RUN pip install -q -r requirements.txt
+
+#container port expose
 EXPOSE 80
 
-COPY src src
-COPY server.js .
+ENTRYPOINT ["/bin/bash", "user_activity_init.sh"]
 
-CMD [ "npm", "start" ]
